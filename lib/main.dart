@@ -1,5 +1,8 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/core/utils/theme.dart';
+import 'package:habit_tracker/screens/splash/splash_screen.dart';
 
 void main() {
   runApp(const MainApp());
@@ -13,11 +16,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       theme: AppThemes.darkTheme,
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+      home: SplashScreen(),
     );
   }
 }

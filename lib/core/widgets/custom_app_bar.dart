@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:habit_tracker/core/utils/colors.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -35,7 +36,7 @@ class CustomAppBar extends StatelessWidget {
               fontFamily: 'cairo',
             ),
           ),
-          SizedBox(height: 4),
+          Gap(4),
           Text(
             "كل عادة تترك أثرًا",
             style: TextStyle(
@@ -44,22 +45,22 @@ class CustomAppBar extends StatelessWidget {
               fontFamily: 'cairo',
             ),
           ),
-          SizedBox(height: 20),
+          Gap(20),
           // Action icons
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                icon: Icon(Icons.add_circle_outline),
-                iconSize: 28,
-                color: AppColors.primaryText,
-                onPressed: onAddPressed,
-              ),
-              IconButton(
                 icon: Icon(Icons.bar_chart_outlined),
                 iconSize: 26,
                 color: AppColors.primaryText,
                 onPressed: onStatsPressed,
+              ),
+              IconButton(
+                icon: Icon(Icons.add_circle_outline),
+                iconSize: 28,
+                color: AppColors.primaryText,
+                onPressed: onAddPressed,
               ),
               IconButton(
                 icon: Icon(Icons.settings_outlined),

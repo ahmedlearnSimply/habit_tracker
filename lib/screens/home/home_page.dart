@@ -22,6 +22,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: AppColors.cardColor,
         body: Column(
           children: [
+            //? AppBar
             CustomAppBar(
               userName: AppLocalStorage.getCachedData(
                 key: AppLocalStorage.kUserName,

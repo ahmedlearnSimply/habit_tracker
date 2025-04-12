@@ -60,7 +60,7 @@ class AppThemes {
     colorScheme: const ColorScheme.dark(
       background: AppColors.background,
       surface: AppColors.cardColor,
-      primary: AppColors.amber,
+      primary: AppColors.primaryText,
       onPrimary: AppColors.primaryText,
       onSurface: AppColors.primaryText,
     ),

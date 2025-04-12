@@ -2,13 +2,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:habit_tracker/core/services/localStorage/AppLocalStorage.dart';
 import 'package:habit_tracker/core/utils/theme.dart';
 import 'package:habit_tracker/screens/onborading/model/onboarding_model.dart';
 import 'package:habit_tracker/screens/onborading/page/onborading_screen.dart';
 import 'package:habit_tracker/screens/splash/splash_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const MainApp());
+  await AppLocalStorage.init();
 }
 
 class MainApp extends StatelessWidget {
@@ -26,7 +30,7 @@ class MainApp extends StatelessWidget {
       locale: Locale('ar'),
       theme: AppThemes.darkTheme,
       debugShowCheckedModeBanner: false,
-      home: OnboradingScreen(),
+      home: SplashScreen(),
     );
   }
 }

@@ -7,13 +7,14 @@ environment:
   sdk: ^3.5.4
 
 dependencies:
-  flutter_localizations:
-    sdk: flutter
-  intl: ^0.19.0 # or the latest version
   flutter:
+    sdk: flutter
+  flutter_localizations:
     sdk: flutter
   flutter_svg: ^2.0.17
   gap: ^3.0.1
+  intl: ^0.19.0
+  shared_preferences: ^2.5.3
   smooth_page_indicator: ^1.2.1
 
 dev_dependencies:

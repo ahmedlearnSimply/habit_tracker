@@ -3,9 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:habit_tracker/core/services/localStorage/AppLocalStorage.dart';
 import 'package:habit_tracker/core/utils/assets.dart';
 import 'package:habit_tracker/core/utils/colors.dart';
 import 'package:habit_tracker/core/utils/textStyle.dart';
+import 'package:habit_tracker/screens/home/home_page.dart';
+import 'package:habit_tracker/screens/onborading/page/onborading_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -32,6 +35,19 @@ class _SplashScreenState extends State<SplashScreen> {
 
     Future.delayed(Duration(milliseconds: 1000), () {
       setState(() => _showSubtitle = true);
+    });
+
+    Future.delayed(Duration(seconds: 2), () {
+      bool isOnboardingShown =
+          AppLocalStorage.getCachedData(key: AppLocalStorage.kOnboarding) ??
+              false;
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              isOnboardingShown ? HomePage() : OnboradingScreen(),
+        ),
+      );
     });
   }
 

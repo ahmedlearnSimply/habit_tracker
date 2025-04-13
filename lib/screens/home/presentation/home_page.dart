@@ -127,18 +127,51 @@ class _HomePageState extends State<HomePage> {
                                   runSpacing: 12,
                                   children: [
                                     IconTile(
+                                      icon: Icons.alarm,
+                                      isSelected: selectedIcon == Icons.alarm,
+                                      onTap: () => setModalState(
+                                          () => selectedIcon = Icons.alarm),
+                                    ),
+                                    IconTile(
+                                      icon: Icons.apple,
+                                      isSelected: selectedIcon == Icons.apple,
+                                      onTap: () => setModalState(
+                                          () => selectedIcon = Icons.apple),
+                                    ),
+                                    IconTile(
                                       icon: Icons.bedtime,
                                       isSelected: selectedIcon == Icons.bedtime,
                                       onTap: () => setModalState(
                                           () => selectedIcon = Icons.bedtime),
                                     ),
                                     IconTile(
-                                      icon: Icons.heart_broken,
-                                      isSelected:
-                                          selectedIcon == Icons.heart_broken,
-                                      onTap: () => setModalState(() =>
-                                          selectedIcon = Icons.heart_broken),
+                                      icon: Icons.attach_money_rounded,
+                                      isSelected: selectedIcon == Icons.money,
+                                      onTap: () => setModalState(
+                                          () => selectedIcon = Icons.money),
                                     ),
+                                    IconTile(
+                                      icon: Icons.art_track,
+                                      isSelected:
+                                          selectedIcon == Icons.art_track,
+                                      onTap: () => setModalState(
+                                          () => selectedIcon = Icons.art_track),
+                                    ),
+                                    IconTile(
+                                      icon: Icons.sports_mma,
+                                      isSelected:
+                                          selectedIcon == Icons.sports_mma,
+                                      onTap: () => setModalState(() =>
+                                          selectedIcon = Icons.sports_mma),
+                                    ),
+                                    IconTile(
+                                      icon: Icons.book_rounded,
+                                      isSelected:
+                                          selectedIcon == Icons.book_rounded,
+                                      onTap: () => setModalState(() =>
+                                          selectedIcon = Icons.book_rounded),
+                                    ),
+
                                     // ...
                                     GestureDetector(
                                       onTap: () async {

@@ -8,6 +8,7 @@ import 'package:habit_tracker/core/utils/textStyle.dart';
 import 'package:habit_tracker/core/widgets/custom_app_bar.dart';
 import 'package:habit_tracker/core/widgets/custom_button.dart';
 import 'package:habit_tracker/screens/home/data/FullIconPickerScreen.dart';
+import 'package:habit_tracker/screens/home/data/color_tile.dart';
 import 'package:habit_tracker/screens/home/data/icon_tile.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,7 +21,42 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   IconData? selectedIcon;
-
+  Color? selectedColor;
+  List<IconData> icons = [
+    Icons.bedtime,
+    Icons.money,
+    Icons.art_track,
+    Icons.book_rounded,
+    Icons.alarm,
+    Icons.apple,
+    Icons.bed,
+    Icons.book,
+    Icons.code,
+    Icons.phone,
+  ];
+  List<Color> colors = [
+    Colors.red,
+    Colors.green,
+    Colors.blue,
+    Colors.yellow,
+    Colors.pink,
+    Colors.purple,
+    Colors.orange,
+    Colors.brown,
+    Colors.grey,
+    Colors.white,
+    Colors.amber,
+    Colors.lime,
+    Colors.cyan,
+    Colors.teal,
+    Colors.indigo,
+    Colors.blueGrey,
+    Colors.deepOrange,
+    Colors.deepPurple,
+    Colors.lightBlue,
+    Colors.lightGreen,
+    Colors.lightGreenAccent,
+  ];
   bool isSelected = false;
   TextEditingController habitEditingController = TextEditingController();
   Widget build(BuildContext context) {
@@ -49,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                           child: SizedBox(
                             height: 700,
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
                                   mainAxisAlignment:
@@ -121,99 +157,50 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 Gap(25),
-                                Text("icons"),
+                                Text(
+                                  'العلامه',
+                                  style: getBodyStyle(),
+                                ),
+                                Gap(15),
                                 Wrap(
                                   spacing: 12,
                                   runSpacing: 12,
-                                  children: [
-                                    IconTile(
-                                      icon: Icons.alarm,
-                                      isSelected: selectedIcon == Icons.alarm,
-                                      onTap: () => setModalState(
-                                          () => selectedIcon = Icons.alarm),
-                                    ),
-                                    IconTile(
-                                      icon: Icons.apple,
-                                      isSelected: selectedIcon == Icons.apple,
-                                      onTap: () => setModalState(
-                                          () => selectedIcon = Icons.apple),
-                                    ),
-                                    IconTile(
-                                      icon: Icons.bedtime,
-                                      isSelected: selectedIcon == Icons.bedtime,
-                                      onTap: () => setModalState(
-                                          () => selectedIcon = Icons.bedtime),
-                                    ),
-                                    IconTile(
-                                      icon: Icons.attach_money_rounded,
-                                      isSelected: selectedIcon == Icons.money,
-                                      onTap: () => setModalState(
-                                          () => selectedIcon = Icons.money),
-                                    ),
-                                    IconTile(
-                                      icon: Icons.art_track,
-                                      isSelected:
-                                          selectedIcon == Icons.art_track,
-                                      onTap: () => setModalState(
-                                          () => selectedIcon = Icons.art_track),
-                                    ),
-                                    IconTile(
-                                      icon: Icons.sports_mma,
-                                      isSelected:
-                                          selectedIcon == Icons.sports_mma,
-                                      onTap: () => setModalState(() =>
-                                          selectedIcon = Icons.sports_mma),
-                                    ),
-                                    IconTile(
-                                      icon: Icons.book_rounded,
-                                      isSelected:
-                                          selectedIcon == Icons.book_rounded,
-                                      onTap: () => setModalState(() =>
-                                          selectedIcon = Icons.book_rounded),
-                                    ),
-
-                                    // ...
-                                    GestureDetector(
-                                      onTap: () async {
-                                        final result = await Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (_) =>
-                                                  FullIconPickerScreen()),
-                                        );
-                                        if (result != null &&
-                                            result is IconData) {
-                                          setModalState(() {
-                                            selectedIcon = result;
-                                          });
-                                        }
+                                  children: icons.map((icons) {
+                                    return IconTile(
+                                      icon: icons,
+                                      isSelected: selectedIcon == icons,
+                                      onTap: () {
+                                        setModalState(() {
+                                          selectedIcon = icons;
+                                        });
                                       },
-                                      child: Container(
-                                        // margin: EdgeInsets.all(6),
-                                        width: 50,
-                                        height: 50,
-                                        decoration: BoxDecoration(
-                                          color: AppColors.background,
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          border: Border.all(
-                                            color: AppColors.background,
-                                            width: 1,
-                                          ),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            "المزيد",
-                                            style: getSmallStyle(
-                                                color: Colors.white),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                    );
+                                  }).toList(),
                                 ),
 
                                 Gap(20),
+                                Text(
+                                  'لون العاده',
+                                  style: getBodyStyle(),
+                                ),
+                                Gap(15),
+
+                                Wrap(
+                                  spacing: 12,
+                                  runSpacing: 12,
+                                  children: colors.map((color) {
+                                    return ColorTile(
+                                      color: color,
+                                      isSelected: selectedColor == color,
+                                      onTap: () {
+                                        setModalState(() {
+                                          selectedColor = color;
+                                        });
+                                      },
+                                    );
+                                  }).toList(),
+                                ),
+
                                 Spacer(),
                                 CustomButton(
                                   text: "حفظ",
@@ -235,3 +222,93 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+//                          Wrap(
+                                //   spacing: 12,
+                                //   runSpacing: 12,
+                                //   children: [
+                                //     IconTile(
+                                //       icon: Icons.alarm,
+                                //       isSelected: selectedIcon == Icons.alarm,
+                                //       onTap: () => setModalState(
+                                //           () => selectedIcon = Icons.alarm),
+                                //     ),
+                                //     IconTile(
+                                //       icon: Icons.apple,
+                                //       isSelected: selectedIcon == Icons.apple,
+                                //       onTap: () => setModalState(
+                                //           () => selectedIcon = Icons.apple),
+                                //     ),
+                                //     IconTile(
+                                //       icon: Icons.bedtime,
+                                //       isSelected: selectedIcon == Icons.bedtime,
+                                //       onTap: () => setModalState(
+                                //           () => selectedIcon = Icons.bedtime),
+                                //     ),
+                                //     IconTile(
+                                //       icon: Icons.attach_money_rounded,
+                                //       isSelected: selectedIcon == Icons.money,
+                                //       onTap: () => setModalState(
+                                //           () => selectedIcon = Icons.money),
+                                //     ),
+                                //     IconTile(
+                                //       icon: Icons.art_track,
+                                //       isSelected:
+                                //           selectedIcon == Icons.art_track,
+                                //       onTap: () => setModalState(
+                                //           () => selectedIcon = Icons.art_track),
+                                //     ),
+                                //     IconTile(
+                                //       icon: Icons.sports_mma,
+                                //       isSelected:
+                                //           selectedIcon == Icons.sports_mma,
+                                //       onTap: () => setModalState(() =>
+                                //           selectedIcon = Icons.sports_mma),
+                                //     ),
+                                //     IconTile(
+                                //       icon: Icons.book_rounded,
+                                //       isSelected:
+                                //           selectedIcon == Icons.book_rounded,
+                                //       onTap: () => setModalState(() =>
+                                //           selectedIcon = Icons.book_rounded),
+                                //     ),
+
+                                //     // ...
+                                //     GestureDetector(
+                                //       onTap: () async {
+                                //         final result = await Navigator.push(
+                                //           context,
+                                //           MaterialPageRoute(
+                                //               builder: (_) =>
+                                //                   FullIconPickerScreen()),
+                                //         );
+                                //         if (result != null &&
+                                //             result is IconData) {
+                                //           setModalState(() {
+                                //             selectedIcon = result;
+                                //           });
+                                //         }
+                                //       },
+                                //       child: Container(
+                                //         // margin: EdgeInsets.all(6),
+                                //         width: 50,
+                                //         height: 50,
+                                //         decoration: BoxDecoration(
+                                //           color: AppColors.background,
+                                //           borderRadius:
+                                //               BorderRadius.circular(12),
+                                //           border: Border.all(
+                                //             color: AppColors.background,
+                                //             width: 1,
+                                //           ),
+                                //         ),
+                                //         child: Center(
+                                //           child: Text(
+                                //             "المزيد",
+                                //             style: getSmallStyle(
+                                //                 color: Colors.white),
+                                //           ),
+                                //         ),
+                                //       ),
+                                //     ),
+                                //   ],
+                                // ),

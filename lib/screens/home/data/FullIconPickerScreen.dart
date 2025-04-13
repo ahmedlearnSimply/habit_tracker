@@ -72,6 +72,13 @@ class FullIconPickerScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.cardColor,
       appBar: AppBar(
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios_new_outlined),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         title: Text(
           "اختر أيقونة",
           style: TextStyle(
@@ -109,7 +116,9 @@ class FullIconPickerScreen extends StatelessWidget {
                     return GestureDetector(
                       onTap: () {
                         Navigator.pop(
-                            context, iconCategories[categoryName]![index]);
+                          context,
+                          iconCategories[categoryName]![index],
+                        );
                       },
                       child: Container(
                         decoration: BoxDecoration(

@@ -158,12 +158,19 @@ void showAddHabitSheet(BuildContext context) {
                               final result = await Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (_) => FullIconPickerScreen()),
+                                  builder: (_) => FullIconPickerScreen(),
+                                ),
                               );
                               if (result != null && result is IconData) {
-                                setModalState(() {
-                                  selectedIcon = result;
-                                });
+                                setModalState(
+                                  () {
+                                    selectedIcon = result;
+                                    bool isContains = icons.contains(result);
+                                    !isContains
+                                        ? icons = [result, ...icons.sublist(1)]
+                                        : false; // Replace first icon safely
+                                  },
+                                );
                               }
                             },
                             child: Container(

@@ -48,10 +48,10 @@ void showAddHabitSheet(BuildContext context) {
       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
     ),
     builder: (context) {
+      IconData? selectedIcon;
+      Color? selectedColor;
       return StatefulBuilder(
         builder: (context, setModalState) {
-          IconData? selectedIcon;
-          Color? selectedColor;
           TextEditingController nameController = TextEditingController();
           TextEditingController descController = TextEditingController();
 
@@ -215,8 +215,6 @@ void showAddHabitSheet(BuildContext context) {
                       ),
                     ),
                   ),
-
-                  // ✅ Floating Save Button
                   Positioned(
                     bottom: MediaQuery.of(context).viewInsets.bottom + 16,
                     left: 16,

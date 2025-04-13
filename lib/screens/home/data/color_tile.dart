@@ -17,7 +17,8 @@ class ColorTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 200),
         width: 40,
         height: 40,
         decoration: BoxDecoration(
@@ -28,6 +29,18 @@ class ColorTile extends StatelessWidget {
             width: isSelected ? 2 : 1,
           ),
         ),
+        child: isSelected
+            ? Center(
+                child: Container(
+                  width: 14,
+                  height: 14,
+                  decoration: BoxDecoration(
+                    color: AppColors.cardColor,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+              )
+            : null,
       ),
     );
   }

@@ -30,20 +30,18 @@ import 'package:habit_tracker/core/utils/colors.dart';
 
 class IconTile extends StatelessWidget {
   final IconData icon;
-  final IconData? selectedIcon;
+  final bool isSelected;
   final VoidCallback onTap;
 
-  const IconTile({
+  IconTile({
     super.key,
     required this.icon,
-    required this.selectedIcon,
+    required this.isSelected,
     required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    final bool isSelected = selectedIcon == icon;
-
     return GestureDetector(
       onTap: onTap,
       child: Container(

@@ -127,26 +127,18 @@ class _HomePageState extends State<HomePage> {
                                   runSpacing: 12,
                                   children: [
                                     IconTile(
-                                      // isSelected: isSelected,
                                       icon: Icons.bedtime,
-                                      selectedIcon: selectedIcon,
-                                      onTap: () {
-                                        setModalState(() {
-                                          selectedIcon = Icons.bedtime;
-                                        });
-                                      },
+                                      isSelected: selectedIcon == Icons.bedtime,
+                                      onTap: () => setModalState(
+                                          () => selectedIcon = Icons.bedtime),
                                     ),
                                     IconTile(
-                                      icon: Icons.book,
-                                      // isSelected: isSelected,
-                                      selectedIcon: selectedIcon,
-                                      onTap: () {
-                                        setModalState(() {
-                                          selectedIcon = Icons.book;
-                                        });
-                                      },
+                                      icon: Icons.heart_broken,
+                                      isSelected:
+                                          selectedIcon == Icons.heart_broken,
+                                      onTap: () => setModalState(() =>
+                                          selectedIcon = Icons.heart_broken),
                                     ),
-
                                     // ...
                                     GestureDetector(
                                       onTap: () async {

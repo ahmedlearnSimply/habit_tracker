@@ -74,7 +74,10 @@ class FullIconPickerScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new_outlined),
+          icon: Icon(
+            Icons.arrow_back_ios_new_outlined,
+            size: 20,
+          ),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -85,11 +88,12 @@ class FullIconPickerScreen extends StatelessWidget {
             color: Colors.white,
           ),
         ),
+        centerTitle: true,
         backgroundColor: AppColors.cardColor,
         iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         child: ListView(
           children: iconCategories.entries.map((entry) {
             final categoryName = entry.key;
@@ -97,10 +101,16 @@ class FullIconPickerScreen extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Gap(30),
-                Text(
-                  categoryName,
-                  style: getSmallStyle(),
+                Gap(20),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                    categoryName,
+                    style: getSmallStyle(
+                      color: Colors.white.withOpacity(0.8),
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
                 Gap(10),
                 GridView.builder(
@@ -109,8 +119,9 @@ class FullIconPickerScreen extends StatelessWidget {
                   itemCount: icons.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 5,
-                    crossAxisSpacing: 12,
-                    mainAxisSpacing: 12,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                    childAspectRatio: 1,
                   ),
                   itemBuilder: (context, index) {
                     return GestureDetector(
@@ -142,24 +153,3 @@ class FullIconPickerScreen extends StatelessWidget {
     );
   }
 }
-
-// GestureDetector(
-//       onTap: onTap,
-//       child: Container(
-//         width: 50,
-//         height: 50,
-//         decoration: BoxDecoration(
-//           color: AppColors.background,
-//           borderRadius: BorderRadius.circular(12),
-//           border: Border.all(
-//             color: isSelected ? Colors.white : Colors.transparent,
-//             width: isSelected ? 2 : 1,
-//           ),
-//         ),
-//         child: Icon(
-//           icon,
-//           color: Colors.white,
-//           size: 25,
-//         ),
-//       ),
-//     );

@@ -20,6 +20,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   IconData? selectedIcon;
+
   bool isSelected = false;
   TextEditingController habitEditingController = TextEditingController();
   Widget build(BuildContext context) {
@@ -42,7 +43,6 @@ class _HomePageState extends State<HomePage> {
                           BorderRadius.vertical(top: Radius.circular(20)),
                     ),
                     builder: (context) {
-                      IconData? selectedIcon;
                       return StatefulBuilder(builder: (context, setModalState) {
                         return Padding(
                           padding: EdgeInsets.all(16),
@@ -158,7 +158,7 @@ class _HomePageState extends State<HomePage> {
                                         );
                                         if (result != null &&
                                             result is IconData) {
-                                          setState(() {
+                                          setModalState(() {
                                             selectedIcon = result;
                                           });
                                         }

@@ -55,8 +55,8 @@ void showAddHabitSheet(BuildContext context) {
     ),
     builder: (context) {
       // Local variables for selected icon and color
-      IconData? selectedIcon;
-      Color? selectedColor;
+      IconData? selectedIcon = Icons.timer;
+      Color? selectedColor = Colors.amber;
 
       return StatefulBuilder(
         builder: (context, setModalState) {
@@ -127,7 +127,16 @@ void showAddHabitSheet(BuildContext context) {
 
                           // Habit Description Input
                           TextFormField(
+                            maxLines: 5,
+                            minLines: 1,
                             controller: desController,
+                            keyboardType: TextInputType.text,
+                            textInputAction: TextInputAction
+                                .done, // shows "Done" on the keyboard
+                            onFieldSubmitted: (_) {
+                              FocusScope.of(context)
+                                  .unfocus(); // this hides the keyboard
+                            },
                             decoration: InputDecoration(
                               labelText: "وصف العادة (اختياري)",
                               floatingLabelAlignment:

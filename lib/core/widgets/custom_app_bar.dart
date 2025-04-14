@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:habit_tracker/core/utils/assets.dart';
 import 'package:habit_tracker/core/utils/colors.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -27,14 +29,36 @@ class CustomAppBar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Greeting
-          Text(
-            "أهلاً، $userName 👋",
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              fontFamily: 'cairo',
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "أهلاً، $userName 👋",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontFamily: 'cairo',
+                ),
+              ),
+              Row(
+                children: [
+                  Text(
+                    "اثر",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                      fontFamily: 'cairo',
+                    ),
+                  ),
+                  Gap(5),
+                  SvgPicture.asset(
+                    AppAssets.logoSvg,
+                    width: 40,
+                  ),
+                ],
+              ),
+            ],
           ),
           Gap(4),
           Text(

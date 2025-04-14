@@ -43,6 +43,8 @@ List<Color> colors = [
   Color(0xFFFFFFFF), // White
   Color(0xFF000000), // Black
 ];
+TextEditingController nameController = TextEditingController();
+TextEditingController desController = TextEditingController();
 void showAddHabitSheet(BuildContext context) {
   showModalBottomSheet(
     context: context,
@@ -59,8 +61,6 @@ void showAddHabitSheet(BuildContext context) {
       return StatefulBuilder(
         builder: (context, setModalState) {
           // Controllers for habit name and description
-          TextEditingController nameController = TextEditingController();
-          TextEditingController desController = TextEditingController();
 
           return DraggableScrollableSheet(
             expand: false,
@@ -90,9 +90,10 @@ void showAddHabitSheet(BuildContext context) {
                                 style: getBodyStyle(),
                               ),
                               IconButton(
-                                icon: Icon(Icons.clear),
-                                onPressed: () => Navigator.pop(context),
-                              ),
+                                  icon: Icon(Icons.clear),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  }),
                             ],
                           ),
                           Gap(20),
@@ -100,6 +101,13 @@ void showAddHabitSheet(BuildContext context) {
                           // Habit Name Input
                           TextFormField(
                             controller: nameController,
+                            keyboardType: TextInputType.text,
+                            textInputAction: TextInputAction
+                                .done, // shows "Done" on the keyboard
+                            onFieldSubmitted: (_) {
+                              FocusScope.of(context)
+                                  .unfocus(); // this hides the keyboard
+                            },
                             decoration: InputDecoration(
                               labelText: "اسم العادة",
                               floatingLabelAlignment:
@@ -114,6 +122,7 @@ void showAddHabitSheet(BuildContext context) {
                                   horizontal: 20, vertical: 14),
                             ),
                           ),
+
                           Gap(20),
 
                           // Habit Description Input
@@ -241,6 +250,8 @@ void showAddHabitSheet(BuildContext context) {
                         // Add the new habit to the HabitBloc
                         context.read<HabitBloc>().add(AddHabitEvent(newHabit));
                         Navigator.pop(context);
+                        nameController.clear();
+                        desController.clear();
                       },
                     ),
                   ),

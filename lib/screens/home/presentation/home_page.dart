@@ -7,10 +7,10 @@ import 'package:habit_tracker/core/utils/colors.dart';
 import 'package:habit_tracker/core/utils/textStyle.dart';
 import 'package:habit_tracker/core/widgets/custom_app_bar.dart';
 import 'package:habit_tracker/core/widgets/custom_button.dart';
-import 'package:habit_tracker/screens/home/data/FullIconPickerScreen.dart';
-import 'package:habit_tracker/screens/home/data/color_tile.dart';
-import 'package:habit_tracker/screens/home/data/icon_tile.dart';
-import 'package:habit_tracker/screens/home/data/showModelSheet.dart';
+import 'package:habit_tracker/screens/home/widgets/FullIconPickerScreen.dart';
+import 'package:habit_tracker/screens/home/widgets/color_tile.dart';
+import 'package:habit_tracker/screens/home/widgets/icon_tile.dart';
+import 'package:habit_tracker/screens/home/widgets/showModelSheet.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

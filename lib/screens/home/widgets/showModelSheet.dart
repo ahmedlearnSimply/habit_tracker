@@ -1,10 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:habit_tracker/core/utils/colors.dart';
 import 'package:habit_tracker/core/utils/textStyle.dart';
 import 'package:habit_tracker/core/widgets/custom_button.dart';
+import 'package:habit_tracker/screens/home/bloc/habit_bloc.dart';
+import 'package:habit_tracker/screens/home/bloc/habit_event.dart';
+import 'package:habit_tracker/screens/home/model/habit_model.dart';
 import 'package:habit_tracker/screens/home/widgets/FullIconPickerScreen.dart';
 import 'package:habit_tracker/screens/home/widgets/color_tile.dart';
 import 'package:habit_tracker/screens/home/widgets/icon_tile.dart';
@@ -48,12 +52,15 @@ void showAddHabitSheet(BuildContext context) {
       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
     ),
     builder: (context) {
+      // Local variables for selected icon and color
       IconData? selectedIcon;
       Color? selectedColor;
+
       return StatefulBuilder(
         builder: (context, setModalState) {
+          // Controllers for habit name and description
           TextEditingController nameController = TextEditingController();
-          TextEditingController descController = TextEditingController();
+          TextEditingController desController = TextEditingController();
 
           return DraggableScrollableSheet(
             expand: false,
@@ -75,7 +82,6 @@ void showAddHabitSheet(BuildContext context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Header Row
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -91,7 +97,7 @@ void showAddHabitSheet(BuildContext context) {
                           ),
                           Gap(20),
 
-                          // Name
+                          // Habit Name Input
                           TextFormField(
                             controller: nameController,
                             decoration: InputDecoration(
@@ -110,9 +116,9 @@ void showAddHabitSheet(BuildContext context) {
                           ),
                           Gap(20),
 
-                          // Description
+                          // Habit Description Input
                           TextFormField(
-                            controller: descController,
+                            controller: desController,
                             decoration: InputDecoration(
                               labelText: "وصف العادة (اختياري)",
                               floatingLabelAlignment:
@@ -129,23 +135,23 @@ void showAddHabitSheet(BuildContext context) {
                           ),
                           Gap(30),
 
+                          // Icon Selection
                           Gap(25),
                           Text(
                             'ايقونه',
                             style: getBodyStyle(),
                           ),
                           Gap(15),
-
                           Wrap(
                             spacing: 12,
                             runSpacing: 12,
-                            children: icons.map((icons) {
+                            children: icons.map((icon) {
                               return IconTile(
-                                icon: icons,
-                                isSelected: selectedIcon == icons,
+                                icon: icon,
+                                isSelected: selectedIcon == icon,
                                 onTap: () {
                                   setModalState(() {
-                                    selectedIcon = icons;
+                                    selectedIcon = icon;
                                   });
                                 },
                               );
@@ -153,6 +159,7 @@ void showAddHabitSheet(BuildContext context) {
                           ),
                           Gap(12),
 
+                          // "More" Button
                           GestureDetector(
                             onTap: () async {
                               final result = await Navigator.push(
@@ -162,19 +169,12 @@ void showAddHabitSheet(BuildContext context) {
                                 ),
                               );
                               if (result != null && result is IconData) {
-                                setModalState(
-                                  () {
-                                    selectedIcon = result;
-                                    bool isContains = icons.contains(result);
-                                    !isContains
-                                        ? icons = [result, ...icons.sublist(1)]
-                                        : false; // Replace first icon safely
-                                  },
-                                );
+                                setModalState(() {
+                                  selectedIcon = result;
+                                });
                               }
                             },
                             child: Container(
-                              // margin: EdgeInsets.all(6),
                               width: 50,
                               height: 50,
                               decoration: BoxDecoration(
@@ -201,6 +201,7 @@ void showAddHabitSheet(BuildContext context) {
                           ),
                           Gap(15),
 
+                          // Color Selection
                           Wrap(
                             spacing: 12,
                             runSpacing: 12,
@@ -217,11 +218,12 @@ void showAddHabitSheet(BuildContext context) {
                             }).toList(),
                           ),
                           Gap(24),
-                          // Button fixed at the bottom
                         ],
                       ),
                     ),
                   ),
+
+                  // Save Button fixed at the bottom
                   Positioned(
                     bottom: MediaQuery.of(context).viewInsets.bottom + 16,
                     left: 16,
@@ -229,7 +231,16 @@ void showAddHabitSheet(BuildContext context) {
                     child: CustomButton(
                       text: "حفظ",
                       onPressed: () {
-                        // Your logic here
+                        final newHabit = HabitModel(
+                          title: nameController.text,
+                          description: desController.text.trim(),
+                          icon: selectedIcon!,
+                          color: selectedColor!,
+                          createdAt: DateTime.now(),
+                        );
+                        // Add the new habit to the HabitBloc
+                        context.read<HabitBloc>().add(AddHabitEvent(newHabit));
+                        Navigator.pop(context);
                       },
                     ),
                   ),

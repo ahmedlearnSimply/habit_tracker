@@ -5,9 +5,9 @@ import 'package:gap/gap.dart';
 import 'package:habit_tracker/core/utils/colors.dart';
 import 'package:habit_tracker/core/utils/textStyle.dart';
 import 'package:habit_tracker/core/widgets/custom_button.dart';
-import 'package:habit_tracker/screens/home/data/FullIconPickerScreen.dart';
-import 'package:habit_tracker/screens/home/data/color_tile.dart';
-import 'package:habit_tracker/screens/home/data/icon_tile.dart';
+import 'package:habit_tracker/screens/home/widgets/FullIconPickerScreen.dart';
+import 'package:habit_tracker/screens/home/widgets/color_tile.dart';
+import 'package:habit_tracker/screens/home/widgets/icon_tile.dart';
 
 List<IconData> icons = [
   Icons.bedtime,
@@ -131,7 +131,7 @@ void showAddHabitSheet(BuildContext context) {
 
                           Gap(25),
                           Text(
-                            'العلامه',
+                            'ايقونه',
                             style: getBodyStyle(),
                           ),
                           Gap(15),

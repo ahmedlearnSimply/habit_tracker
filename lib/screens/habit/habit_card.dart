@@ -50,38 +50,51 @@ class _HabitCardState extends State<HabitCard> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: widget.color.withOpacity(.2),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Center(
-                          child: Icon(
-                            widget.icon,
-                            size: 29,
+                  Expanded(
+                    // ✅ wrap this entire inner Row
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: widget.color.withOpacity(.2),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Center(
+                            child: Icon(
+                              widget.icon,
+                              size: 29,
+                            ),
                           ),
                         ),
-                      ),
-                      Gap(20),
-                      Column(
-                        children: [
-                          Text(
-                            widget.title,
-                            style: getTitleStyle(),
+                        Gap(20),
+                        Expanded(
+                          // ✅ still needed here to make text flexible
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                widget.title,
+                                style: getTitleStyle(),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                widget.description ?? '',
+                                style: getSmallStyle(),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
                           ),
-                          Text(
-                            widget.description!,
-                            style: getSmallStyle(),
-                          ),
-                        ],
-                      ),
-                    ],
+                        ),
+                      ],
+                    ),
                   ),
+                  // Optional trailing widget, e.g., check icon
+                  Gap(10),
                   Container(
                     width: 50,
                     height: 50,
@@ -118,6 +131,7 @@ class _HabitCardState extends State<HabitCard> {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Wrap(
+        textDirection: TextDirection.ltr,
         spacing: 4,
         runSpacing: 4,
         direction: Axis.vertical,
@@ -129,7 +143,8 @@ class _HabitCardState extends State<HabitCard> {
             width: 12,
             height: 12,
             decoration: BoxDecoration(
-              color: widget.color.withOpacity(0.1),
+              color:
+                  isPastOrToday ? widget.color : widget.color.withOpacity(0.1),
               borderRadius: BorderRadius.circular(4),
             ),
           );

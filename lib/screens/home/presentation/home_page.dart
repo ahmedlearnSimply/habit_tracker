@@ -6,6 +6,7 @@ import 'package:habit_tracker/core/services/localStorage/AppLocalStorage.dart';
 import 'package:habit_tracker/core/utils/colors.dart';
 import 'package:habit_tracker/core/utils/textStyle.dart';
 import 'package:habit_tracker/core/widgets/custom_app_bar.dart';
+import 'package:habit_tracker/screens/habit/habit_card.dart';
 import 'package:habit_tracker/screens/home/bloc/habit_bloc.dart';
 import 'package:habit_tracker/screens/home/bloc/habit_state.dart';
 import 'package:habit_tracker/screens/home/widgets/showModelSheet.dart';
@@ -47,17 +48,23 @@ class _HomePageState extends State<HomePage> {
                       itemCount: state.habits.length,
                       itemBuilder: (context, index) {
                         final habit = state.habits[index];
-                        return ListTile(
-                          leading: Icon(
-                            habit.icon,
-                            color: habit.color,
-                          ),
-                          title: Text(
-                            habit.title,
-                            style: getTitleStyle(),
-                          ),
-                          subtitle: Text(habit.description ?? ''),
+                        return HabitCard(
+                          icon: habit.icon,
+                          color: habit.color,
+                          title: habit.title,
+                          description: habit.description,
                         );
+                        // return ListTile(
+                        //   leading: Icon(
+                        //     habit.icon,
+                        //     color: habit.color,
+                        //   ),
+                        //   title: Text(
+                        //     habit.title,
+                        //     style: getTitleStyle(),
+                        //   ),
+                        //   subtitle: Text(habit.description ?? ''),
+                        // );
                       },
                     ),
                   );

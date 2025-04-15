@@ -54,17 +54,6 @@ class _HomePageState extends State<HomePage> {
                           title: habit.title,
                           description: habit.description,
                         );
-                        // return ListTile(
-                        //   leading: Icon(
-                        //     habit.icon,
-                        //     color: habit.color,
-                        //   ),
-                        //   title: Text(
-                        //     habit.title,
-                        //     style: getTitleStyle(),
-                        //   ),
-                        //   subtitle: Text(habit.description ?? ''),
-                        // );
                       },
                     ),
                   );

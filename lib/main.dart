@@ -6,8 +6,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:habit_tracker/core/services/localStorage/AppLocalStorage.dart';
 import 'package:habit_tracker/core/utils/theme.dart';
 import 'package:habit_tracker/screens/home/bloc/habit_bloc.dart';
-import 'package:habit_tracker/screens/onborading/model/onboarding_model.dart';
-import 'package:habit_tracker/screens/onborading/page/onborading_screen.dart';
 import 'package:habit_tracker/screens/splash/splash_screen.dart';
 
 void main() async {

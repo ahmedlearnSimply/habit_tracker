@@ -34,7 +34,7 @@ class _HabitCardState extends State<HabitCard> {
     final bool isTodayCompleted = widget.completedDates.any((d) =>
         d.year == today.year && d.month == today.month && d.day == today.day);
     return Padding(
-      padding: EdgeInsets.all(16.0),
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       child: Container(
         decoration: BoxDecoration(
           color: AppColors.background,
@@ -153,7 +153,6 @@ class _HabitCardState extends State<HabitCard> {
               d.year == day.year && d.month == day.month && d.day == day.day);
 
           return GestureDetector(
-            onTap: () => widget.onToggle(day),
             child: Container(
               width: 12,
               height: 12,

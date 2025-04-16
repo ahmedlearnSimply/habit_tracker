@@ -1,13 +1,9 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:habit_tracker/core/utils/colors.dart';
 import 'package:habit_tracker/core/utils/textStyle.dart';
-import 'package:habit_tracker/screens/home/bloc/habit_bloc.dart';
-import 'package:habit_tracker/screens/home/bloc/habit_state.dart';
-import 'package:habit_tracker/screens/home/model/habit_model.dart';
 
 class HabitCard extends StatefulWidget {
   Color color;
@@ -76,14 +72,16 @@ class _HabitCardState extends State<HabitCard> {
                             children: [
                               Text(
                                 widget.title,
-                                style: getTitleStyle(),
+                                style: getBodyStyle(),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
                               SizedBox(height: 4),
                               Text(
                                 widget.description ?? '',
-                                style: getSmallStyle(),
+                                style: getSmallStyle(
+                                  fontSize: 12,
+                                ),
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                               ),

@@ -1,8 +1,9 @@
-// ignore_for_file: use_key_in_widget_constructors
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors
 
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:habit_tracker/screens/habit/habit_card.dart';
 
 class DetailHabitCard extends StatelessWidget {
@@ -27,16 +28,22 @@ class DetailHabitCard extends StatelessWidget {
           ),
           // 2. The foreground UI for the habit tracker
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            child: Center(
-              child: HabitCard(
-                title: habitCard.title,
-                description: habitCard.description,
-                icon: habitCard.icon,
-                color: habitCard.color,
-                completedDates: habitCard.completedDates,
-                onToggle: habitCard.onToggle,
-              ),
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                  child: HabitCard(
+                    title: habitCard.title,
+                    description: habitCard.description,
+                    icon: habitCard.icon,
+                    color: habitCard.color,
+                    completedDates: habitCard.completedDates,
+                    onToggle: habitCard.onToggle,
+                  ),
+                ),
+                Gap(20),
+              ],
             ),
           ),
         ],

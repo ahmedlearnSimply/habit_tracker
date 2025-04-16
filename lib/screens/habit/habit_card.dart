@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:habit_tracker/core/utils/colors.dart';
 import 'package:habit_tracker/core/utils/textStyle.dart';
+import 'package:habit_tracker/screens/habit/detail_habit_card.dart';
 
 class HabitCard extends StatefulWidget {
   Color color;

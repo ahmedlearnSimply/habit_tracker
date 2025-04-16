@@ -8,6 +8,9 @@ import 'package:habit_tracker/core/utils/textStyle.dart';
 class HabitCard extends StatefulWidget {
   Color color;
   String title;
+  final List<DateTime> completedDates;
+  final Function(DateTime) onToggle;
+
   String? description = " ";
   IconData icon;
   HabitCard({
@@ -16,7 +19,8 @@ class HabitCard extends StatefulWidget {
     this.description,
     required this.icon,
     required this.color,
-    // required this.habitModel,
+    required this.completedDates,
+    required this.onToggle,
   });
 
   @override
@@ -26,6 +30,9 @@ class HabitCard extends StatefulWidget {
 class _HabitCardState extends State<HabitCard> {
   @override
   Widget build(BuildContext context) {
+    final DateTime today = DateTime.now();
+    final bool isTodayCompleted = widget.completedDates.any((d) =>
+        d.year == today.year && d.month == today.month && d.day == today.day);
     return Padding(
       padding: EdgeInsets.all(16.0),
       child: Container(
@@ -93,16 +100,21 @@ class _HabitCardState extends State<HabitCard> {
                   ),
                   // Optional trailing widget, e.g., check icon
                   Gap(10),
-                  Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: widget.color,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Center(
-                      child: Icon(
-                        Icons.check,
+                  GestureDetector(
+                    onTap: () => widget.onToggle(today),
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: isTodayCompleted
+                            ? widget.color
+                            : widget.color.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Icon(
+                          Icons.check,
+                        ),
                       ),
                     ),
                   ),
@@ -122,7 +134,8 @@ class _HabitCardState extends State<HabitCard> {
   Widget _buildGrid() {
     final DateTime today = DateTime.now();
     final DateTime startOfYear = DateTime(today.year, 1, 1);
-    final DateTime endDate = today.add(Duration(days: 7)); // one week in future
+    final DateTime endDate =
+        today.add(Duration(days: 7)); // one month in future
 
     final int totalDays = endDate.difference(startOfYear).inDays + 1;
 
@@ -136,14 +149,19 @@ class _HabitCardState extends State<HabitCard> {
         children: List.generate(totalDays, (index) {
           final day = startOfYear.add(Duration(days: index));
           final isPastOrToday = !day.isAfter(today);
+          final isCompleted = widget.completedDates.any((d) =>
+              d.year == day.year && d.month == day.month && d.day == day.day);
 
-          return Container(
-            width: 12,
-            height: 12,
-            decoration: BoxDecoration(
-              color:
-                  isPastOrToday ? widget.color : widget.color.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(4),
+          return GestureDetector(
+            onTap: () => widget.onToggle(day),
+            child: Container(
+              width: 12,
+              height: 12,
+              decoration: BoxDecoration(
+                color:
+                    isCompleted ? widget.color : widget.color.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(3),
+              ),
             ),
           );
         }),

@@ -6,3 +6,9 @@ class AddHabitEvent extends HabitEvent {
   final HabitModel habit;
   AddHabitEvent(this.habit);
 }
+
+class ToggleHabitEvent extends HabitEvent {
+  final int index;
+  final DateTime date;
+  ToggleHabitEvent({required this.index, required this.date});
+}

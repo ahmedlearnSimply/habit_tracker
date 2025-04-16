@@ -8,6 +8,7 @@ import 'package:habit_tracker/core/utils/textStyle.dart';
 import 'package:habit_tracker/core/widgets/custom_app_bar.dart';
 import 'package:habit_tracker/screens/habit/habit_card.dart';
 import 'package:habit_tracker/screens/home/bloc/habit_bloc.dart';
+import 'package:habit_tracker/screens/home/bloc/habit_event.dart';
 import 'package:habit_tracker/screens/home/bloc/habit_state.dart';
 import 'package:habit_tracker/screens/home/widgets/showModelSheet.dart';
 
@@ -49,6 +50,12 @@ class _HomePageState extends State<HomePage> {
                       itemBuilder: (context, index) {
                         final habit = state.habits[index];
                         return HabitCard(
+                          completedDates: habit.completedDates.toList(),
+                          onToggle: (DateTime day) {
+                            context
+                                .read<HabitBloc>()
+                                .add(ToggleHabitEvent(index: index, date: day));
+                          },
                           icon: habit.icon,
                           color: habit.color,
                           title: habit.title,

@@ -10,22 +10,10 @@ import 'package:habit_tracker/screens/habit/habit_card.dart';
 
 class DetailHabitCard extends StatelessWidget {
   HabitCard habitCard;
-  // Color color;
-  // String title;
-  // final List<DateTime> completedDates;
-  // final Function(DateTime) onToggle;
 
-  // String? description = " ";
-  // IconData icon;
   DetailHabitCard({
     super.key,
     required this.habitCard,
-    // required this.title,
-    // this.description,
-    // required this.icon,
-    // required this.color,
-    // required this.completedDates,
-    // required this.onToggle,
   });
 
   @override
@@ -40,7 +28,7 @@ class DetailHabitCard extends StatelessWidget {
         children: [
           // 1. The blurred and dimmed background
           BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
             child: Container(
               color: Colors.black.withOpacity(0.3),
             ),
@@ -53,7 +41,7 @@ class DetailHabitCard extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: AppColors.background,
+                    color: Colors.transparent.withOpacity(0),
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(
                       color: AppColors.secondaryText,
@@ -111,29 +99,16 @@ class DetailHabitCard extends StatelessWidget {
                                       ],
                                     ),
                                   ),
+                                  IconButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    icon: Icon(Icons.clear),
+                                  )
                                 ],
                               ),
                             ),
                             // Optional trailing widget, e.g., check icon
-                            Gap(10),
-                            // GestureDetector(
-                            //   onTap: () => habitCard.onToggle(today),
-                            //   child: Container(
-                            //     width: 50,
-                            //     height: 50,
-                            //     decoration: BoxDecoration(
-                            //       color: isTodayCompleted
-                            //           ? habitCard.color
-                            //           : habitCard.color.withOpacity(0.2),
-                            //       borderRadius: BorderRadius.circular(10),
-                            //     ),
-                            //     child: Center(
-                            //       child: Icon(
-                            //         Icons.check,
-                            //       ),
-                            //     ),
-                            //   ),
-                            // ),
                           ],
                         ),
                         Gap(20),
@@ -180,7 +155,7 @@ class DetailHabitCard extends StatelessWidget {
               decoration: BoxDecoration(
                 color: isCompleted
                     ? habitCard.color
-                    : habitCard.color.withOpacity(0.1),
+                    : habitCard.color.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(3),
               ),
             ),

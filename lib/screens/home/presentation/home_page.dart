@@ -81,7 +81,7 @@
 //     );
 //   }
 
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, must_be_immutable, annotate_overrides
 
 //   void _showHabitDetail(BuildContext context, HabitModel habit, int index) {
 //     showDialog(
@@ -122,7 +122,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:habit_tracker/core/services/localStorage/AppLocalStorage.dart';
 import 'package:habit_tracker/core/utils/colors.dart';
-import 'package:habit_tracker/core/utils/textStyle.dart';
 import 'package:habit_tracker/core/widgets/custom_app_bar.dart';
 import 'package:habit_tracker/screens/habit/detail_habit_card.dart';
 import 'package:habit_tracker/screens/habit/habit_card.dart';
@@ -230,7 +229,7 @@ class HomePage extends StatelessWidget {
                 }
                 return Center(
                   child: Text(
-                    "No habits yet.",
+                    "لا يوجد اضافه عادات تم اضافتها",
                     style: TextStyle(color: AppColors.secondaryText),
                   ),
                 );

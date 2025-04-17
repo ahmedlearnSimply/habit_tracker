@@ -1,12 +1,15 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:habit_tracker/core/utils/colors.dart';
 import 'package:habit_tracker/core/utils/textStyle.dart';
+import 'package:habit_tracker/core/widgets/custom_button.dart';
 import 'package:habit_tracker/screens/habit/habit_card.dart';
 
-class DetailHabitCard extends StatelessWidget {
+class DetailHabitCard extends StatefulWidget {
   final HabitCard habitCard;
 
   const DetailHabitCard({
@@ -15,13 +18,19 @@ class DetailHabitCard extends StatelessWidget {
   });
 
   @override
+  State<DetailHabitCard> createState() => _DetailHabitCardState();
+}
+
+class _DetailHabitCardState extends State<DetailHabitCard> {
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final cardW = size.width * 1;
     final cardH = size.height * 0.3;
     final DateTime today = DateTime.now();
-    final bool isTodayCompleted = habitCard.completedDates.any((d) =>
+    final bool isTodayCompleted = widget.habitCard.completedDates.any((d) =>
         d.year == today.year && d.month == today.month && d.day == today.day);
+    bool isPressed = false;
 
     return Material(
       color: Colors.transparent,
@@ -63,12 +72,13 @@ class DetailHabitCard extends StatelessWidget {
                                     width: 50,
                                     height: 50,
                                     decoration: BoxDecoration(
-                                      color: habitCard.color.withOpacity(.2),
+                                      color: widget.habitCard.color
+                                          .withOpacity(.2),
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: Center(
                                       child: Icon(
-                                        habitCard.icon,
+                                        widget.habitCard.icon,
                                         size: 29,
                                       ),
                                     ),
@@ -80,18 +90,21 @@ class DetailHabitCard extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          habitCard.title,
+                                          widget.habitCard.title,
                                           style: getBodyStyle(),
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                         ),
-                                        SizedBox(height: 4),
-                                        Text(
-                                          habitCard.description ?? '',
-                                          style: getSmallStyle(fontSize: 12),
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
+
+                                        // SizedBox(height: 4),
+                                        if (widget
+                                            .habitCard.description!.isNotEmpty)
+                                          Text(
+                                            widget.habitCard.description ?? '',
+                                            style: getSmallStyle(fontSize: 12),
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                       ],
                                     ),
                                   ),
@@ -104,10 +117,53 @@ class DetailHabitCard extends StatelessWidget {
                             ),
                           ],
                         ),
+                        Gap(10),
+                        _buildGrid(context),
                         Gap(20),
                         Expanded(
-                          child: _buildGrid(context), // Pass context here
-                        ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              IconButton(
+                                onPressed: () {},
+                                icon: Icon(Icons.share),
+                              ),
+                              IconButton(
+                                onPressed: () {},
+                                icon: Icon(Icons.delete),
+                              ),
+                              IconButton(
+                                onPressed: () {},
+                                icon: Icon(Icons.edit),
+                              ),
+                              IconButton(
+                                onPressed: () {},
+                                icon: Icon(Icons.calendar_month),
+                              ),
+                              Expanded(
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: isTodayCompleted
+                                          ? widget.habitCard.color
+                                          : widget.habitCard.color
+                                              .withOpacity(0.7),
+                                      foregroundColor: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15))),
+                                  onPressed: () {
+                                    widget.habitCard.onToggle(today);
+                                  },
+                                  child: isTodayCompleted
+                                      ? Text(
+                                          "اكتملت",
+                                        )
+                                      : Text("اكمل"),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -123,7 +179,7 @@ class DetailHabitCard extends StatelessWidget {
   Widget _buildGrid(BuildContext context) {
     final DateTime today = DateTime.now();
     final DateTime startOfYear = DateTime(today.year, 1, 1);
-    final DateTime endDate = today.add(Duration(days: 7));
+    final DateTime endDate = today.add(Duration(days: 3));
     final int totalDays = endDate.difference(startOfYear).inDays + 1;
 
     // Calculate available width minus padding
@@ -142,7 +198,7 @@ class DetailHabitCard extends StatelessWidget {
           runSpacing: 4,
           children: List.generate(totalDays, (index) {
             final day = startOfYear.add(Duration(days: index));
-            final isCompleted = habitCard.completedDates.any((d) =>
+            final isCompleted = widget.habitCard.completedDates.any((d) =>
                 d.year == day.year && d.month == day.month && d.day == day.day);
 
             return GestureDetector(
@@ -151,8 +207,8 @@ class DetailHabitCard extends StatelessWidget {
                 height: 12,
                 decoration: BoxDecoration(
                   color: isCompleted
-                      ? habitCard.color
-                      : habitCard.color.withOpacity(0.2),
+                      ? widget.habitCard.color
+                      : widget.habitCard.color.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(3),
                 ),
               ),

@@ -4,16 +4,35 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:habit_tracker/core/utils/colors.dart';
+import 'package:habit_tracker/core/utils/textStyle.dart';
 import 'package:habit_tracker/screens/habit/habit_card.dart';
 
 class DetailHabitCard extends StatelessWidget {
   HabitCard habitCard;
+  // Color color;
+  // String title;
+  // final List<DateTime> completedDates;
+  // final Function(DateTime) onToggle;
+
+  // String? description = " ";
+  // IconData icon;
   DetailHabitCard({
+    super.key,
     required this.habitCard,
-    Key? key,
+    // required this.title,
+    // this.description,
+    // required this.icon,
+    // required this.color,
+    // required this.completedDates,
+    // required this.onToggle,
   });
+
   @override
   Widget build(BuildContext context) {
+    final DateTime today = DateTime.now();
+    final bool isTodayCompleted = habitCard.completedDates.any((d) =>
+        d.year == today.year && d.month == today.month && d.day == today.day);
     return Material(
       color: Colors
           .transparent, // Makes sure we can see through to the blurred background
@@ -26,27 +45,147 @@ class DetailHabitCard extends StatelessWidget {
               color: Colors.black.withOpacity(0.3),
             ),
           ),
-          // 2. The foreground UI for the habit tracker
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Center(
-                  child: HabitCard(
-                    title: habitCard.title,
-                    description: habitCard.description,
-                    icon: habitCard.icon,
-                    color: habitCard.color,
-                    completedDates: habitCard.completedDates,
-                    onToggle: habitCard.onToggle,
+
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.background,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      color: AppColors.secondaryText,
+                      width: .1,
+                    ),
+                  ),
+                  width: double.infinity,
+                  height: 180,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              // ✅ wrap this entire inner Row
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 50,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      color: habitCard.color.withOpacity(.2),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Center(
+                                      child: Icon(
+                                        habitCard.icon,
+                                        size: 29,
+                                      ),
+                                    ),
+                                  ),
+                                  Gap(20),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          habitCard.title,
+                                          style: getBodyStyle(),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        SizedBox(height: 4),
+                                        Text(
+                                          habitCard.description ?? '',
+                                          style: getSmallStyle(
+                                            fontSize: 12,
+                                          ),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            // Optional trailing widget, e.g., check icon
+                            Gap(10),
+                            // GestureDetector(
+                            //   onTap: () => habitCard.onToggle(today),
+                            //   child: Container(
+                            //     width: 50,
+                            //     height: 50,
+                            //     decoration: BoxDecoration(
+                            //       color: isTodayCompleted
+                            //           ? habitCard.color
+                            //           : habitCard.color.withOpacity(0.2),
+                            //       borderRadius: BorderRadius.circular(10),
+                            //     ),
+                            //     child: Center(
+                            //       child: Icon(
+                            //         Icons.check,
+                            //       ),
+                            //     ),
+                            //   ),
+                            // ),
+                          ],
+                        ),
+                        Gap(20),
+                        Expanded(
+                          child: _buildGrid(),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                Gap(20),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildGrid() {
+    final DateTime today = DateTime.now();
+    final DateTime startOfYear = DateTime(today.year, 1, 1);
+    final DateTime endDate =
+        today.add(Duration(days: 7)); // one month in future
+
+    final int totalDays = endDate.difference(startOfYear).inDays + 1;
+
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Wrap(
+        textDirection: TextDirection.ltr,
+        spacing: 4,
+        runSpacing: 4,
+        direction: Axis.vertical,
+        children: List.generate(totalDays, (index) {
+          final day = startOfYear.add(Duration(days: index));
+          final isPastOrToday = !day.isAfter(today);
+          final isCompleted = habitCard.completedDates.any((d) =>
+              d.year == day.year && d.month == day.month && d.day == day.day);
+
+          return GestureDetector(
+            child: Container(
+              width: 12,
+              height: 12,
+              decoration: BoxDecoration(
+                color: isCompleted
+                    ? habitCard.color
+                    : habitCard.color.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(3),
+              ),
+            ),
+          );
+        }),
       ),
     );
   }

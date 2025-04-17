@@ -74,7 +74,6 @@ class _HabitCardState extends State<HabitCard> {
                         ),
                         Gap(20),
                         Expanded(
-                          // ✅ still needed here to make text flexible
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

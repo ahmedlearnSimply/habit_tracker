@@ -1,5 +1,3 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors
-
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -9,29 +7,30 @@ import 'package:habit_tracker/core/utils/textStyle.dart';
 import 'package:habit_tracker/screens/habit/habit_card.dart';
 
 class DetailHabitCard extends StatelessWidget {
-  HabitCard habitCard;
+  final HabitCard habitCard;
 
-  DetailHabitCard({
+  const DetailHabitCard({
     super.key,
     required this.habitCard,
   });
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final cardW = size.width * 1;
+    final cardH = size.height * 0.3;
     final DateTime today = DateTime.now();
     final bool isTodayCompleted = habitCard.completedDates.any((d) =>
         d.year == today.year && d.month == today.month && d.day == today.day);
+
     return Material(
-      color: Colors
-          .transparent, // Makes sure we can see through to the blurred background
+      color: Colors.transparent,
       child: Stack(
         children: [
-          // 1. The blurred and dimmed background
+          // Blurred background
           BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
-            child: Container(
-              color: Colors.black.withOpacity(0.3),
-            ),
+            child: Container(color: Colors.black.withOpacity(0.3)),
           ),
 
           Column(
@@ -48,8 +47,8 @@ class DetailHabitCard extends StatelessWidget {
                       width: .1,
                     ),
                   ),
-                  width: double.infinity,
-                  height: 180,
+                  width: cardW,
+                  height: cardH,
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
@@ -58,7 +57,6 @@ class DetailHabitCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
-                              // ✅ wrap this entire inner Row
                               child: Row(
                                 children: [
                                   Container(
@@ -90,9 +88,7 @@ class DetailHabitCard extends StatelessWidget {
                                         SizedBox(height: 4),
                                         Text(
                                           habitCard.description ?? '',
-                                          style: getSmallStyle(
-                                            fontSize: 12,
-                                          ),
+                                          style: getSmallStyle(fontSize: 12),
                                           maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
                                         ),
@@ -100,20 +96,17 @@ class DetailHabitCard extends StatelessWidget {
                                     ),
                                   ),
                                   IconButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
+                                    onPressed: () => Navigator.pop(context),
                                     icon: Icon(Icons.clear),
                                   )
                                 ],
                               ),
                             ),
-                            // Optional trailing widget, e.g., check icon
                           ],
                         ),
                         Gap(20),
                         Expanded(
-                          child: _buildGrid(),
+                          child: _buildGrid(context), // Pass context here
                         ),
                       ],
                     ),
@@ -127,40 +120,45 @@ class DetailHabitCard extends StatelessWidget {
     );
   }
 
-  Widget _buildGrid() {
+  Widget _buildGrid(BuildContext context) {
     final DateTime today = DateTime.now();
     final DateTime startOfYear = DateTime(today.year, 1, 1);
-    final DateTime endDate =
-        today.add(Duration(days: 7)); // one month in future
-
+    final DateTime endDate = today.add(Duration(days: 7));
     final int totalDays = endDate.difference(startOfYear).inDays + 1;
+
+    // Calculate available width minus padding
+    final availableWidth =
+        MediaQuery.of(context).size.width - 32; // 16 padding on each side
 
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      child: Wrap(
-        textDirection: TextDirection.ltr,
-        spacing: 4,
-        runSpacing: 4,
-        direction: Axis.vertical,
-        children: List.generate(totalDays, (index) {
-          final day = startOfYear.add(Duration(days: index));
-          final isPastOrToday = !day.isAfter(today);
-          final isCompleted = habitCard.completedDates.any((d) =>
-              d.year == day.year && d.month == day.month && d.day == day.day);
+      child: SizedBox(
+        width: availableWidth, // Force full width
+        child: Wrap(
+          alignment: WrapAlignment.start,
+          runAlignment: WrapAlignment.start,
+          textDirection: TextDirection.ltr,
+          spacing: 4,
+          runSpacing: 4,
+          children: List.generate(totalDays, (index) {
+            final day = startOfYear.add(Duration(days: index));
+            final isCompleted = habitCard.completedDates.any((d) =>
+                d.year == day.year && d.month == day.month && d.day == day.day);
 
-          return GestureDetector(
-            child: Container(
-              width: 12,
-              height: 12,
-              decoration: BoxDecoration(
-                color: isCompleted
-                    ? habitCard.color
-                    : habitCard.color.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(3),
+            return GestureDetector(
+              child: Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(
+                  color: isCompleted
+                      ? habitCard.color
+                      : habitCard.color.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(3),
+                ),
               ),
-            ),
-          );
-        }),
+            );
+          }),
+        ),
       ),
     );
   }

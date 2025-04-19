@@ -8,8 +8,10 @@ import 'package:habit_tracker/screens/habit/habit_card.dart';
 
 class DetailHabitCard extends StatefulWidget {
   final HabitCard habitCard;
-  const DetailHabitCard({
+  final VoidCallback? onDelete;
+  DetailHabitCard({
     super.key,
+    this.onDelete,
     required this.habitCard,
   });
 
@@ -152,7 +154,12 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
                                 ),
                               ),
                               GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  if (widget.onDelete != null) {
+                                    widget.onDelete!();
+                                    Navigator.pop(context);
+                                  }
+                                },
                                 child: SizedBox(
                                   width: 55,
                                   height: 50,

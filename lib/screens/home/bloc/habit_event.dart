@@ -12,3 +12,8 @@ class ToggleHabitEvent extends HabitEvent {
   final DateTime date;
   ToggleHabitEvent({required this.index, required this.date});
 }
+
+class DeleteHabitEvent extends HabitEvent {
+  final int index;
+  DeleteHabitEvent({required this.index});
+}

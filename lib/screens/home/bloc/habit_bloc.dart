@@ -45,6 +45,12 @@ class HabitBloc extends Bloc<HabitEvent, HabitState> {
       await habit.save();
       emit(HabitListUpdated(box.values.toList()));
     });
+    on<DeleteHabitEvent>((event, emit) async {
+      final box = Hive.box<HabitModel>('habits');
+      await box.deleteAt(event.index);
+
+      emit(HabitListUpdated(box.values.toList()));
+    });
 
     final box = Hive.box<HabitModel>('habits');
     final habits = box.values.toList();

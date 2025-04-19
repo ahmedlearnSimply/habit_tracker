@@ -121,22 +121,50 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.share),
+                              GestureDetector(
+                                onTap: () {},
+                                child: SizedBox(
+                                  width: 50,
+                                  height: 50,
+                                  child: Icon(
+                                    Icons.share,
+                                  ),
+                                ),
                               ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.delete),
+                              GestureDetector(
+                                onTap: () {},
+                                child: SizedBox(
+                                  width: 50,
+                                  height: 50,
+                                  child: Icon(
+                                    Icons.delete,
+                                  ),
+                                ),
                               ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.edit),
+                              GestureDetector(
+                                onTap: () {},
+                                child: SizedBox(
+                                  width: 50,
+                                  height: 50,
+                                  child: Icon(
+                                    Icons.edit,
+                                  ),
+                                ),
                               ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.calendar_month),
+                              GestureDetector(
+                                onTap: () {},
+                                child: SizedBox(
+                                  width: 50,
+                                  height: 50,
+                                  child: Icon(
+                                    Icons.calendar_month,
+                                  ),
+                                ),
                               ),
+                              // IconButton(
+                              //   onPressed: () {},
+                              //   icon: Icon(Icons.calendar_month),
+                              // ),
                               Expanded(
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(

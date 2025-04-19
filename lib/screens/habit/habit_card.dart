@@ -135,7 +135,7 @@ class _HabitCardState extends State<HabitCard> {
     final DateTime today = DateTime.now();
     final DateTime startOfYear = DateTime(today.year, 1, 1);
     final DateTime endDate =
-        today.add(Duration(days: 7)); // one month in future
+        today.add(Duration(days: 1)); // one month in future
 
     final int totalDays = endDate.difference(startOfYear).inDays + 1;
 

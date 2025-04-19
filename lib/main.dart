@@ -6,13 +6,18 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:habit_tracker/core/services/localStorage/AppLocalStorage.dart';
 import 'package:habit_tracker/core/utils/theme.dart';
 import 'package:habit_tracker/screens/home/bloc/habit_bloc.dart';
+import 'package:habit_tracker/screens/home/model/habit_model.dart';
 import 'package:habit_tracker/screens/splash/splash_screen.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(const MainApp());
   await AppLocalStorage.init();
+  await Hive.initFlutter();
+  // Hive.registerAdapter(HabitModelAdapter());
+  await Hive.openBox('habits');
+  runApp(MainApp());
 }
 
 class MainApp extends StatelessWidget {

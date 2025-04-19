@@ -5,14 +5,21 @@ import 'package:gap/gap.dart';
 import 'package:habit_tracker/core/utils/colors.dart';
 import 'package:habit_tracker/core/utils/textStyle.dart';
 import 'package:habit_tracker/screens/habit/habit_card.dart';
+import 'package:habit_tracker/screens/home/model/habit_model.dart';
+import 'package:habit_tracker/screens/home/widgets/showModelSheet.dart';
 
 class DetailHabitCard extends StatefulWidget {
   final HabitCard habitCard;
+  final HabitModel habit;
+  final int index;
+
   final VoidCallback? onDelete;
   DetailHabitCard({
     super.key,
+    required this.habit,
     this.onDelete,
     required this.habitCard,
+    required this.index,
   });
 
   @override
@@ -134,7 +141,14 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
                               // ),
 
                               GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  showAddHabitSheet(
+                                    context,
+                                    habit: widget.habit,
+                                    index: widget.index,
+                                  );
+                                },
                                 child: SizedBox(
                                   width: 55,
                                   height: 50,

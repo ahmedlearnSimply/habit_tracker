@@ -70,6 +70,8 @@ class HomePage extends StatelessWidget {
                                     child: BlocBuilder<HabitBloc, HabitState>(
                                       builder: (context, state) {
                                         return DetailHabitCard(
+                                          habit: habit,
+                                          index: index,
                                           onDelete: () {
                                             context.read<HabitBloc>().add(
                                                   DeleteHabitEvent(

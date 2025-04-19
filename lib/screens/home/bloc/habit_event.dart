@@ -17,3 +17,13 @@ class DeleteHabitEvent extends HabitEvent {
   final int index;
   DeleteHabitEvent({required this.index});
 }
+
+class UpdateHabitEvent extends HabitEvent {
+  final int index;
+  final HabitModel updatedHabit;
+
+  UpdateHabitEvent({
+    required this.index,
+    required this.updatedHabit,
+  });
+}

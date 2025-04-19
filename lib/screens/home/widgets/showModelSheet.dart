@@ -251,9 +251,10 @@ void showAddHabitSheet(BuildContext context) {
                           final newHabit = HabitModel(
                             title: nameController.text,
                             description: desController.text.trim(),
-                            icon: selectedIcon!,
-                            color: selectedColor!,
-                            createdAt: DateTime.now(),
+                            iconCodePoint: selectedIcon!.codePoint,
+                            colorValue: selectedColor!.value,
+                            createdAt: DateTime.now().toIso8601String(),
+                            completedDates: [],
                           );
                           context
                               .read<HabitBloc>()

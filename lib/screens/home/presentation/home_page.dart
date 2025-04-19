@@ -76,7 +76,7 @@ class HomePage extends StatelessWidget {
                                             icon: habit.icon,
                                             color: habit.color,
                                             completedDates:
-                                                habit.completedDates.toList(),
+                                                habit.completedDateSet.toList(),
                                             onToggle: (DateTime day) {
                                               context.read<HabitBloc>().add(
                                                     ToggleHabitEvent(
@@ -94,7 +94,7 @@ class HomePage extends StatelessWidget {
                             );
                           },
                           child: HabitCard(
-                            completedDates: habit.completedDates.toList(),
+                            completedDates: habit.completedDateSet.toList(),
                             onToggle: (DateTime day) {
                               context.read<HabitBloc>().add(
                                   ToggleHabitEvent(index: index, date: day));

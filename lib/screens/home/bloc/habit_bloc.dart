@@ -45,5 +45,12 @@ class HabitBloc extends Bloc<HabitEvent, HabitState> {
       await habit.save();
       emit(HabitListUpdated(box.values.toList()));
     });
+
+    final box = Hive.box<HabitModel>('habits');
+    final habits = box.values.toList();
+
+    if (habits.isNotEmpty) {
+      emit(HabitListUpdated(habits));
+    }
   }
 }

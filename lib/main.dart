@@ -15,8 +15,8 @@ void main() async {
 
   await AppLocalStorage.init();
   await Hive.initFlutter();
-  // Hive.registerAdapter(HabitModelAdapter());
-  await Hive.openBox('habits');
+  Hive.registerAdapter(HabitModelAdapter());
+  await Hive.openBox<HabitModel>('habits');
   runApp(MainApp());
 }
 

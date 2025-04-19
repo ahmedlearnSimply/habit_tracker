@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:habit_tracker/core/utils/colors.dart';
@@ -11,7 +9,6 @@ import 'package:habit_tracker/screens/habit/habit_card.dart';
 
 class DetailHabitCard extends StatefulWidget {
   final HabitCard habitCard;
-
   const DetailHabitCard({
     super.key,
     required this.habitCard,

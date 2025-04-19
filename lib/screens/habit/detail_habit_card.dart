@@ -120,26 +120,17 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              GestureDetector(
-                                onTap: () {},
-                                child: SizedBox(
-                                  width: 55,
-                                  height: 50,
-                                  child: Icon(
-                                    Icons.share,
-                                  ),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {},
-                                child: SizedBox(
-                                  width: 55,
-                                  height: 50,
-                                  child: Icon(
-                                    Icons.delete,
-                                  ),
-                                ),
-                              ),
+                              // GestureDetector(
+                              //   onTap: () {},
+                              //   child: SizedBox(
+                              //     width: 55,
+                              //     height: 50,
+                              //     child: Icon(
+                              //       Icons.share,
+                              //     ),
+                              //   ),
+                              // ),
+
                               GestureDetector(
                                 onTap: () {},
                                 child: SizedBox(
@@ -157,6 +148,16 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
                                   height: 50,
                                   child: Icon(
                                     Icons.calendar_month,
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {},
+                                child: SizedBox(
+                                  width: 55,
+                                  height: 50,
+                                  child: Icon(
+                                    Icons.delete,
                                   ),
                                 ),
                               ),

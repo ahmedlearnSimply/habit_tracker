@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:habit_tracker/core/utils/colors.dart';
 import 'package:habit_tracker/core/utils/textStyle.dart';
-import 'package:habit_tracker/core/widgets/custom_button.dart';
 import 'package:habit_tracker/screens/habit/habit_card.dart';
 
 class DetailHabitCard extends StatefulWidget {
@@ -124,7 +123,7 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
                               GestureDetector(
                                 onTap: () {},
                                 child: SizedBox(
-                                  width: 50,
+                                  width: 55,
                                   height: 50,
                                   child: Icon(
                                     Icons.share,
@@ -134,7 +133,7 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
                               GestureDetector(
                                 onTap: () {},
                                 child: SizedBox(
-                                  width: 50,
+                                  width: 55,
                                   height: 50,
                                   child: Icon(
                                     Icons.delete,
@@ -144,7 +143,7 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
                               GestureDetector(
                                 onTap: () {},
                                 child: SizedBox(
-                                  width: 50,
+                                  width: 55,
                                   height: 50,
                                   child: Icon(
                                     Icons.edit,
@@ -154,7 +153,7 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
                               GestureDetector(
                                 onTap: () {},
                                 child: SizedBox(
-                                  width: 50,
+                                  width: 55,
                                   height: 50,
                                   child: Icon(
                                     Icons.calendar_month,
@@ -175,7 +174,7 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
                                       foregroundColor: Colors.white,
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
-                                              BorderRadius.circular(15))),
+                                              BorderRadius.circular(5))),
                                   onPressed: () {
                                     widget.habitCard.onToggle(today);
                                   },

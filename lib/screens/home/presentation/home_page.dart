@@ -120,7 +120,7 @@ class HomePage extends StatelessWidget {
                 }
                 return Center(
                   child: Text(
-                    "لا يوجد اضافه عادات تم اضافتها",
+                    "لا يوجد عادات تم اضافتها",
                     style: TextStyle(color: AppColors.secondaryText),
                   ),
                 );

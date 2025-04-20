@@ -10,6 +10,7 @@ class HabitBloc extends Bloc<HabitEvent, HabitState> {
   //list to hold all habits
   List<HabitModel> _habits = [];
   HabitBloc() : super(HabitInitialState()) {
+    //! Add habit
     on<AddHabitEvent>((event, emit) async {
       final box = Hive.box<HabitModel>('habits');
       await box.add(event.habit);
@@ -17,6 +18,7 @@ class HabitBloc extends Bloc<HabitEvent, HabitState> {
       emit(HabitListUpdated(box.values.toList()));
     });
 
+    //! Toggle habit
     on<ToggleHabitEvent>((event, emit) async {
       final box = Hive.box<HabitModel>('habits');
       final habit = box.getAt(event.index);
@@ -45,12 +47,16 @@ class HabitBloc extends Bloc<HabitEvent, HabitState> {
       await habit.save();
       emit(HabitListUpdated(box.values.toList()));
     });
+
+    //! Delete habit
     on<DeleteHabitEvent>((event, emit) async {
       final box = Hive.box<HabitModel>('habits');
       await box.deleteAt(event.index);
 
       emit(HabitListUpdated(box.values.toList()));
     });
+
+    //! Update habit
     on<UpdateHabitEvent>((event, emit) async {
       final box = Hive.box<HabitModel>('habits');
 

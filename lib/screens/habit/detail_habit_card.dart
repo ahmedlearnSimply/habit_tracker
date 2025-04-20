@@ -96,11 +96,12 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
                                       children: [
                                         Text(
                                           widget.habitCard.title,
-                                          style: getBodyStyle(),
+                                          style: getBodyStyle(
+                                            fontSize: 16,
+                                          ),
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                         ),
-
                                         // SizedBox(height: 4),
                                         if (widget
                                             .habitCard.description!.isNotEmpty)

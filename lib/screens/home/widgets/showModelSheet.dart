@@ -65,9 +65,6 @@ void showAddHabitSheet(
       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
     ),
     builder: (context) {
-      IconData? selectedIcon = icons.isNotEmpty ? icons[0] : null;
-      Color? selectedColor = colors.isNotEmpty ? colors[0] : null;
-
       return StatefulBuilder(
         builder: (context, setModalState) {
           return DraggableScrollableSheet(

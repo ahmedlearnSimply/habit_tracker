@@ -79,29 +79,31 @@ class _OnboradingScreenState extends State<OnboradingScreen> {
                         ),
                         Gap(30),
                         if (pageIndex == onboardingPages.length - 1)
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10.0, vertical: 12),
-                            child: TextFormField(
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'من فضلك ادخل اسمك';
-                                } else {
-                                  return null;
-                                }
-                              },
-                              controller: textEditingController,
-                              decoration: InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 14),
-                                label: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "ادخل اسمك هنا",
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
+                          SingleChildScrollView(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10.0, vertical: 12),
+                              child: TextFormField(
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'من فضلك ادخل اسمك';
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                controller: textEditingController,
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 14),
+                                  label: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "ادخل اسمك هنا",
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),

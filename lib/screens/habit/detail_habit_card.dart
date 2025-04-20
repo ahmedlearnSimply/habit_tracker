@@ -233,11 +233,11 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
         MediaQuery.of(context).size.width - 32; // 16 padding on each side
 
     return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
+      scrollDirection: Axis.vertical,
       child: SizedBox(
         width: availableWidth, // Force full width
         child: Wrap(
-          alignment: WrapAlignment.start,
+          // alignment: WrapAlignment.start,
           runAlignment: WrapAlignment.start,
           textDirection: TextDirection.ltr,
           spacing: 4,

@@ -121,9 +121,7 @@ class _HabitCardState extends State<HabitCard> {
                 ],
               ),
               Gap(20),
-              Expanded(
-                child: _buildGrid(),
-              ),
+              Expanded(child: _buildGrid()),
             ],
           ),
         ),
@@ -135,35 +133,43 @@ class _HabitCardState extends State<HabitCard> {
     final DateTime today = DateTime.now();
     final DateTime startOfYear = DateTime(today.year, 1, 1);
     final DateTime endDate =
-        today.add(Duration(days: 1)); // one month in future
+        today.add(Duration(days: 9)); // one month in future
 
     final int totalDays = endDate.difference(startOfYear).inDays + 1;
+    // final availableWidth =
+    //     MediaQuery.of(context).size.width - 16; // 16 padding on each side
 
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      child: Wrap(
-        textDirection: TextDirection.ltr,
-        spacing: 4,
-        runSpacing: 4,
-        direction: Axis.vertical,
-        children: List.generate(totalDays, (index) {
-          final day = startOfYear.add(Duration(days: index));
-          final isPastOrToday = !day.isAfter(today);
-          final isCompleted = widget.completedDates.any((d) =>
-              d.year == day.year && d.month == day.month && d.day == day.day);
+      child: SizedBox(
+        // width: 400, // Force full width
 
-          return GestureDetector(
-            child: Container(
-              width: 12,
-              height: 12,
-              decoration: BoxDecoration(
-                color:
-                    isCompleted ? widget.color : widget.color.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(3),
+        child: Wrap(
+          runAlignment: WrapAlignment.start,
+          textDirection: TextDirection.ltr,
+          spacing: 4,
+          runSpacing: 4,
+          direction: Axis.vertical,
+          children: List.generate(totalDays, (index) {
+            final day = startOfYear.add(Duration(days: index));
+            final isPastOrToday = !day.isAfter(today);
+            final isCompleted = widget.completedDates.any((d) =>
+                d.year == day.year && d.month == day.month && d.day == day.day);
+
+            return GestureDetector(
+              child: Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(
+                  color: isCompleted
+                      ? widget.color
+                      : widget.color.withOpacity(0.13),
+                  borderRadius: BorderRadius.circular(3),
+                ),
               ),
-            ),
-          );
-        }),
+            );
+          }),
+        ),
       ),
     );
   }

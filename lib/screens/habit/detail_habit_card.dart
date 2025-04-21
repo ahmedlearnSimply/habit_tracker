@@ -31,7 +31,7 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final cardW = size.width * 1;
-    final cardH = size.height * 0.3;
+    final cardH = size.height * 0.4;
     final DateTime today = DateTime.now();
     final bool isTodayCompleted = widget.habitCard.completedDates.any((d) =>
         d.year == today.year && d.month == today.month && d.day == today.day);
@@ -112,93 +112,89 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
                             ),
                           ),
                         Gap(10),
-                        _buildGrid(context),
+                        Expanded(child: _buildGrid(context)),
                         Gap(20),
                         Expanded(
+                            child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              // GestureDetector(
-                              //   onTap: () {},
-                              //   child: SizedBox(
-                              //     width: 55,
-                              //     height: 50,
-                              //     child: Icon(
-                              //       Icons.share,
-                              //     ),
-                              //   ),
-                              // ),
-
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.pop(context);
-                                  showAddHabitSheet(
-                                    context,
-                                    habit: widget.habit,
-                                    index: widget.index,
+                              ...[
+                                Icons.edit,
+                                Icons.calendar_month,
+                                Icons.delete,
+                              ].map(
+                                (icon) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 4.0),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        if (icon == Icons.edit) {
+                                          Navigator.pop(context);
+                                          showAddHabitSheet(
+                                            context,
+                                            habit: widget.habit,
+                                            index: widget.index,
+                                          );
+                                        } else if (icon == Icons.delete) {
+                                          if (widget.onDelete != null) {
+                                            widget.onDelete!();
+                                            Navigator.pop(context);
+                                          }
+                                        } else if (icon ==
+                                            Icons.calendar_month) {
+                                          // TODO: Add calendar behavior
+                                        }
+                                      },
+                                      child: Container(
+                                        width: 40,
+                                        height: 40,
+                                        decoration: BoxDecoration(
+                                          color: widget.habitCard.color
+                                              .withOpacity(0.2),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        child: Icon(
+                                          icon,
+                                          color: widget.habitCard.color,
+                                          size: 20,
+                                        ),
+                                      ),
+                                    ),
                                   );
                                 },
-                                child: SizedBox(
-                                  width: 55,
-                                  height: 50,
-                                  child: Icon(
-                                    Icons.edit,
-                                  ),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {},
-                                child: SizedBox(
-                                  width: 55,
-                                  height: 50,
-                                  child: Icon(
-                                    Icons.calendar_month,
-                                  ),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  if (widget.onDelete != null) {
-                                    widget.onDelete!();
-                                    Navigator.pop(context);
-                                  }
-                                },
-                                child: SizedBox(
-                                  width: 55,
-                                  height: 50,
-                                  child: Icon(
-                                    Icons.delete,
-                                  ),
-                                ),
-                              ),
-                              // IconButton(
-                              //   onPressed: () {},
-                              //   icon: Icon(Icons.calendar_month),
-                              // ),
+                              ).toList(),
+                              Spacer(),
                               Expanded(
+                                flex: 3,
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      backgroundColor: isTodayCompleted
-                                          ? widget.habitCard.color
-                                          : widget.habitCard.color
-                                              .withOpacity(0.7),
-                                      foregroundColor: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(5))),
+                                    backgroundColor: isTodayCompleted
+                                        ? widget.habitCard.color
+                                        : widget.habitCard.color
+                                            .withOpacity(0.7),
+                                    foregroundColor: Colors.white,
+                                    padding: EdgeInsets.symmetric(vertical: 12),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
                                   onPressed: () {
                                     widget.habitCard.onToggle(today);
                                   },
-                                  child: isTodayCompleted
-                                      ? Text(
-                                          "اكتملت",
-                                        )
-                                      : Text("اكمل"),
+                                  child: Text(
+                                    isTodayCompleted ? "اكتملت" : "اكمل",
+                                    style: getBodyStyle(fontSize: 14)
+                                        .copyWith(color: Colors.white),
+                                  ),
                                 ),
                               ),
                             ],
                           ),
-                        )
+                        ))
                       ],
                     ),
                   ),
@@ -214,8 +210,9 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
   Widget _buildGrid(BuildContext context) {
     final DateTime today = DateTime.now();
     final DateTime startOfYear = DateTime(today.year, 1, 1);
-    final DateTime endDate = today.add(Duration(days: 3));
+    final DateTime endDate = today.add(Duration(days: 10));
     final int totalDays = endDate.difference(startOfYear).inDays + 1;
+    const int columns = 6;
 
     // Calculate available width minus padding
     final availableWidth =
@@ -236,16 +233,14 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
             final isCompleted = widget.habitCard.completedDates.any((d) =>
                 d.year == day.year && d.month == day.month && d.day == day.day);
 
-            return GestureDetector(
-              child: Container(
-                width: 12,
-                height: 12,
-                decoration: BoxDecoration(
-                  color: isCompleted
-                      ? widget.habitCard.color
-                      : widget.habitCard.color.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(3),
-                ),
+            return Container(
+              width: 12,
+              height: 12,
+              decoration: BoxDecoration(
+                color: isCompleted
+                    ? widget.habitCard.color
+                    : widget.habitCard.color.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(3),
               ),
             );
           }),

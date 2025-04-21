@@ -68,58 +68,36 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
                     child: Column(
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  Container(
-                                    width: 50,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      color: widget.habitCard.color
-                                          .withOpacity(.2),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Center(
-                                      child: Icon(
-                                        widget.habitCard.icon,
-                                        size: 29,
-                                      ),
-                                    ),
-                                  ),
-                                  Gap(20),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          widget.habitCard.title,
-                                          style: getBodyStyle(
-                                            fontSize: 16,
-                                          ),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        // SizedBox(height: 4),
-                                        if (widget
-                                            .habitCard.description!.isNotEmpty)
-                                          Text(
-                                            widget.habitCard.description ?? '',
-                                            style: getSmallStyle(fontSize: 12),
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                      ],
-                                    ),
-                                  ),
-                                  IconButton(
-                                    onPressed: () => Navigator.pop(context),
-                                    icon: Icon(Icons.clear),
-                                  )
-                                ],
+                            Container(
+                              width: 40,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                color: widget.habitCard.color.withOpacity(.2),
+                                borderRadius: BorderRadius.circular(10),
                               ),
+                              child: Center(
+                                child: Icon(
+                                  widget.habitCard.icon,
+                                  size: 23,
+                                ),
+                              ),
+                            ),
+                            Gap(10),
+                            Expanded(
+                              child: Text(
+                                widget.habitCard.title,
+                                style: getBodyStyle(
+                                  fontSize: 14,
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () => Navigator.pop(context),
+                              icon: Icon(Icons.clear),
                             ),
                           ],
                         ),

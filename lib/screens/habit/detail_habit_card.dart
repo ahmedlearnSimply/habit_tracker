@@ -234,8 +234,8 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
                 d.year == day.year && d.month == day.month && d.day == day.day);
 
             return Container(
-              width: 12,
-              height: 12,
+              width: 10,
+              height: 10,
               decoration: BoxDecoration(
                 color: isCompleted
                     ? widget.habitCard.color

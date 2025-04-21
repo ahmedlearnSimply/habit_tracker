@@ -156,16 +156,13 @@ class _HabitCardState extends State<HabitCard> {
             final isCompleted = widget.completedDates.any((d) =>
                 d.year == day.year && d.month == day.month && d.day == day.day);
 
-            return GestureDetector(
-              child: Container(
-                width: 12,
-                height: 12,
-                decoration: BoxDecoration(
-                  color: isCompleted
-                      ? widget.color
-                      : widget.color.withOpacity(0.13),
-                  borderRadius: BorderRadius.circular(3),
-                ),
+            return Container(
+              width: 12,
+              height: 12,
+              decoration: BoxDecoration(
+                color:
+                    isCompleted ? widget.color : widget.color.withOpacity(0.13),
+                borderRadius: BorderRadius.circular(3),
               ),
             );
           }),

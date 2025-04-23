@@ -107,15 +107,17 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
                               ),
                               Gap(10),
                               if (widget.habitCard.description!.isNotEmpty)
-                                Expanded(
-                                  child: Text(
-                                    widget.habitCard.description ?? '',
-                                    style: getSmallStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w100,
+                                Center(
+                                  child: Expanded(
+                                    child: Text(
+                                      widget.habitCard.description ?? '',
+                                      style: getSmallStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w100,
+                                      ),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
                               Gap(10),

@@ -59,8 +59,8 @@ class _HabitCardState extends State<HabitCard> {
                     child: Row(
                       children: [
                         Container(
-                          width: 50,
-                          height: 50,
+                          width: 40,
+                          height: 40,
                           decoration: BoxDecoration(
                             color: widget.color.withOpacity(.2),
                             borderRadius: BorderRadius.circular(10),
@@ -68,7 +68,7 @@ class _HabitCardState extends State<HabitCard> {
                           child: Center(
                             child: Icon(
                               widget.icon,
-                              size: 29,
+                              size: 24,
                             ),
                           ),
                         ),
@@ -104,8 +104,8 @@ class _HabitCardState extends State<HabitCard> {
                   GestureDetector(
                     onTap: () => widget.onToggle(today),
                     child: Container(
-                      width: 50,
-                      height: 50,
+                      width: 40,
+                      height: 40,
                       decoration: BoxDecoration(
                         color: isTodayCompleted
                             ? widget.color

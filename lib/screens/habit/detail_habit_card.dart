@@ -64,7 +64,7 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
                           //   width: .1,
                           // ),
                         ),
-                        width: cardW,
+                        width: double.infinity,
                         height: cardH,
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
@@ -121,7 +121,10 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
                                   ),
                                 ),
                               Gap(10),
-                              Expanded(child: _buildGrid()),
+                              Expanded(
+                                  child: _buildGrid(
+                                      widget.habitCard.completedDates,
+                                      widget.habitCard.color)),
                               Gap(20),
                               Expanded(
                                   child: Padding(
@@ -222,49 +225,39 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
     );
   }
 
-  Widget _buildGrid() {
+  Widget _buildGrid(List<DateTime> completedDates, Color color) {
     final DateTime today = DateTime.now();
     final DateTime startOfYear = DateTime(today.year, 1, 1);
-    final DateTime endDate =
-        today.add(Duration(days: 150)); // one month in future
+    final DateTime endDate = today.add(Duration(days: 2)); // Up to today only
 
     final int totalDays = endDate.difference(startOfYear).inDays + 1;
-    // final availableWidth =
-    //     MediaQuery.of(context).size.width - 16; // 16 padding on each side
-    final availableWidth =
-        MediaQuery.of(context).size.width - 32; // 16 padding on each side
+
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      child: SizedBox(
-        width: availableWidth, // Force full width
+      child: Wrap(
+        textDirection: TextDirection.ltr,
+        spacing: 4,
+        runSpacing: 4,
+        direction: Axis.vertical, // 🔥 stack vertically first
+        children: List.generate(totalDays, (index) {
+          final day = startOfYear.add(Duration(days: index));
+          final isCompleted = completedDates.any((d) =>
+              d.year == day.year && d.month == day.month && d.day == day.day);
 
-        child: Wrap(
-          runAlignment: WrapAlignment.start,
-          textDirection: TextDirection.ltr,
-          spacing: 4,
-          runSpacing: 4,
-          direction: Axis.vertical,
-          children: List.generate(totalDays, (index) {
-            final day = startOfYear.add(Duration(days: index));
-            final isPastOrToday = !day.isAfter(today);
-            final isCompleted = widget.habitCard.completedDates.any((d) =>
-                d.year == day.year && d.month == day.month && d.day == day.day);
-
-            return Container(
-              width: 11,
-              height: 11,
-              decoration: BoxDecoration(
-                color: isCompleted
-                    ? widget.habitCard.color
-                    : widget.habitCard.color.withOpacity(0.13),
-                borderRadius: BorderRadius.circular(3),
-              ),
-            );
-          }),
-        ),
+          return Container(
+            width: 11,
+            height: 11,
+            decoration: BoxDecoration(
+              color: isCompleted ? color : color.withOpacity(0.13),
+              borderRadius: BorderRadius.circular(3),
+            ),
+          );
+        }),
       ),
     );
   }
+}
+
   // Widget _buildGrid(BuildContext context) {
   //   final DateTime today = DateTime.now();
   //   final DateTime startOfYear = DateTime(today.year, 1, 1);
@@ -306,4 +299,4 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
   //     ),
   //   );
   // }
-}
+

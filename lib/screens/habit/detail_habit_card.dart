@@ -44,202 +44,217 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
           // Blurred background
           BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
-            child: Container(color: Colors.black.withOpacity(0.3)),
-          ),
-
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.transparent.withOpacity(0),
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      color: AppColors.secondaryText,
-                      width: .1,
-                    ),
-                  ),
-                  width: cardW,
-                  height: cardH,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: 40,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                color: widget.habitCard.color.withOpacity(.2),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Center(
-                                child: Icon(
-                                  widget.habitCard.icon,
-                                  size: 23,
-                                ),
-                              ),
-                            ),
-                            Gap(10),
-                            Expanded(
-                              child: Text(
-                                widget.habitCard.title,
-                                style: getBodyStyle(
-                                  fontSize: 14,
-                                ),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            IconButton(
-                              onPressed: () => Navigator.pop(context),
-                              icon: Icon(Icons.clear),
-                            ),
-                          ],
+            child: Container(
+              color: Colors.white.withOpacity(
+                0.04,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(10),
+                          // border: Border.all(
+                          //   color: AppColors.secondaryText,
+                          //   width: .1,
+                          // ),
                         ),
-                        Gap(10),
-                        if (widget.habitCard.description!.isNotEmpty)
-                          Expanded(
-                            child: Text(
-                              widget.habitCard.description ?? '',
-                              style: getSmallStyle(fontSize: 12),
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        Gap(10),
-                        Expanded(child: _buildGrid(context)),
-                        Gap(20),
-                        Expanded(
-                            child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 4),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                        width: cardW,
+                        height: cardH,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
                             children: [
-                              ...[
-                                Icons.edit,
-                                Icons.calendar_month,
-                                Icons.delete,
-                              ].map(
-                                (icon) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 4.0),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        if (icon == Icons.edit) {
-                                          Navigator.pop(context);
-                                          showAddHabitSheet(
-                                            context,
-                                            habit: widget.habit,
-                                            index: widget.index,
-                                          );
-                                        } else if (icon == Icons.delete) {
-                                          if (widget.onDelete != null) {
-                                            widget.onDelete!();
-                                            Navigator.pop(context);
-                                          }
-                                        } else if (icon ==
-                                            Icons.calendar_month) {
-                                          // TODO: Add calendar behavior
-                                        }
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: 40,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      color: widget.habitCard.color
+                                          .withOpacity(.2),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Center(
+                                      child: Icon(
+                                        widget.habitCard.icon,
+                                        size: 23,
+                                      ),
+                                    ),
+                                  ),
+                                  Gap(10),
+                                  Expanded(
+                                    child: Text(
+                                      widget.habitCard.title,
+                                      style: getBodyStyle(
+                                        fontSize: 14,
+                                      ),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    icon: Icon(Icons.clear),
+                                  ),
+                                ],
+                              ),
+                              Gap(10),
+                              if (widget.habitCard.description!.isNotEmpty)
+                                Expanded(
+                                  child: Text(
+                                    widget.habitCard.description ?? '',
+                                    style: getSmallStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w100,
+                                    ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              Gap(10),
+                              Expanded(child: _buildGrid()),
+                              Gap(20),
+                              Expanded(
+                                  child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 4),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    ...[
+                                      Icons.edit,
+                                      Icons.calendar_month,
+                                      Icons.delete,
+                                    ].map(
+                                      (icon) {
+                                        return Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 4.0),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              if (icon == Icons.edit) {
+                                                Navigator.pop(context);
+                                                showAddHabitSheet(
+                                                  context,
+                                                  habit: widget.habit,
+                                                  index: widget.index,
+                                                );
+                                              } else if (icon == Icons.delete) {
+                                                if (widget.onDelete != null) {
+                                                  widget.onDelete!();
+                                                  Navigator.pop(context);
+                                                }
+                                              } else if (icon ==
+                                                  Icons.calendar_month) {
+                                                // TODO: Add calendar behavior
+                                              }
+                                            },
+                                            child: Container(
+                                              width: 40,
+                                              height: 40,
+                                              decoration: BoxDecoration(
+                                                color: widget.habitCard.color
+                                                    .withOpacity(0.2),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                              child: Icon(
+                                                icon,
+                                                color: widget.habitCard.color,
+                                                size: 20,
+                                              ),
+                                            ),
+                                          ),
+                                        );
                                       },
-                                      child: Container(
-                                        width: 40,
-                                        height: 40,
-                                        decoration: BoxDecoration(
-                                          color: widget.habitCard.color
-                                              .withOpacity(0.2),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
+                                    ).toList(),
+                                    Spacer(),
+                                    Expanded(
+                                      flex: 3,
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: isTodayCompleted
+                                              ? widget.habitCard.color
+                                              : widget.habitCard.color
+                                                  .withOpacity(0.7),
+                                          foregroundColor: Colors.white,
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 12),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
                                         ),
-                                        child: Icon(
-                                          icon,
-                                          color: widget.habitCard.color,
-                                          size: 20,
+                                        onPressed: () {
+                                          widget.habitCard.onToggle(today);
+                                        },
+                                        child: Text(
+                                          isTodayCompleted ? "اكتملت" : "اكمل",
+                                          style: getBodyStyle(fontSize: 14)
+                                              .copyWith(color: Colors.white),
                                         ),
                                       ),
                                     ),
-                                  );
-                                },
-                              ).toList(),
-                              Spacer(),
-                              Expanded(
-                                flex: 3,
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: isTodayCompleted
-                                        ? widget.habitCard.color
-                                        : widget.habitCard.color
-                                            .withOpacity(0.7),
-                                    foregroundColor: Colors.white,
-                                    padding: EdgeInsets.symmetric(vertical: 12),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    widget.habitCard.onToggle(today);
-                                  },
-                                  child: Text(
-                                    isTodayCompleted ? "اكتملت" : "اكمل",
-                                    style: getBodyStyle(fontSize: 14)
-                                        .copyWith(color: Colors.white),
-                                  ),
+                                  ],
                                 ),
-                              ),
+                              ))
                             ],
                           ),
-                        ))
-                      ],
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildGrid(BuildContext context) {
+  Widget _buildGrid() {
     final DateTime today = DateTime.now();
     final DateTime startOfYear = DateTime(today.year, 1, 1);
-    final DateTime endDate = today.add(Duration(days: 10));
-    final int totalDays = endDate.difference(startOfYear).inDays + 1;
-    const int columns = 6;
+    final DateTime endDate =
+        today.add(Duration(days: 150)); // one month in future
 
-    // Calculate available width minus padding
+    final int totalDays = endDate.difference(startOfYear).inDays + 1;
+    // final availableWidth =
+    //     MediaQuery.of(context).size.width - 16; // 16 padding on each side
     final availableWidth =
         MediaQuery.of(context).size.width - 32; // 16 padding on each side
-
     return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
+      scrollDirection: Axis.horizontal,
       child: SizedBox(
         width: availableWidth, // Force full width
+
         child: Wrap(
-          // alignment: WrapAlignment.start,
           runAlignment: WrapAlignment.start,
           textDirection: TextDirection.ltr,
           spacing: 4,
           runSpacing: 4,
+          direction: Axis.vertical,
           children: List.generate(totalDays, (index) {
             final day = startOfYear.add(Duration(days: index));
+            final isPastOrToday = !day.isAfter(today);
             final isCompleted = widget.habitCard.completedDates.any((d) =>
                 d.year == day.year && d.month == day.month && d.day == day.day);
 
             return Container(
-              width: 10,
-              height: 10,
+              width: 11,
+              height: 11,
               decoration: BoxDecoration(
                 color: isCompleted
                     ? widget.habitCard.color
-                    : widget.habitCard.color.withOpacity(0.2),
+                    : widget.habitCard.color.withOpacity(0.13),
                 borderRadius: BorderRadius.circular(3),
               ),
             );
@@ -248,4 +263,45 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
       ),
     );
   }
+  // Widget _buildGrid(BuildContext context) {
+  //   final DateTime today = DateTime.now();
+  //   final DateTime startOfYear = DateTime(today.year, 1, 1);
+  //   final DateTime endDate = today.add(Duration(days: 10));
+  //   final int totalDays = endDate.difference(startOfYear).inDays + 1;
+  //   const int columns = 6;
+
+  //   // Calculate available width minus padding
+  // final availableWidth =
+  //     MediaQuery.of(context).size.width - 32; // 16 padding on each side
+
+  //   return SingleChildScrollView(
+  //     scrollDirection: Axis.horizontal,
+  //     child: SizedBox(
+  //       width: availableWidth, // Force full width
+  //       child: Wrap(
+  //         // alignment: WrapAlignment.start,
+  //         runAlignment: WrapAlignment.start,
+  //         textDirection: TextDirection.ltr,
+  //         spacing: 4,
+  //         runSpacing: 4,
+  //         children: List.generate(totalDays, (index) {
+  //           final day = startOfYear.add(Duration(days: index));
+  //           final isCompleted = widget.habitCard.completedDates.any((d) =>
+  //               d.year == day.year && d.month == day.month && d.day == day.day);
+
+  //           return Container(
+  //             width: 11,
+  //             height: 11,
+  //             decoration: BoxDecoration(
+  //               color: isCompleted
+  //                   ? widget.habitCard.color
+  //                   : widget.habitCard.color.withOpacity(0.2),
+  //               borderRadius: BorderRadius.circular(3),
+  //             ),
+  //           );
+  //         }),
+  //       ),
+  //     ),
+  //   );
+  // }
 }

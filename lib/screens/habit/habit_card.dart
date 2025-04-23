@@ -88,6 +88,7 @@ class _HabitCardState extends State<HabitCard> {
                                 widget.description ?? '',
                                 style: getSmallStyle(
                                   fontSize: 12,
+                                  fontWeight: FontWeight.normal,
                                 ),
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
@@ -131,7 +132,8 @@ class _HabitCardState extends State<HabitCard> {
 
   Widget _buildGrid() {
     final DateTime today = DateTime.now();
-    final DateTime startOfYear = DateTime(today.year, 1, 1);
+    final DateTime startOfYear =
+        DateTime(today.year, 1, 1); // first day of the year
     final DateTime endDate =
         today.add(Duration(days: 9)); // one month in future
 
@@ -157,8 +159,8 @@ class _HabitCardState extends State<HabitCard> {
                 d.year == day.year && d.month == day.month && d.day == day.day);
 
             return Container(
-              width: 12,
-              height: 12,
+              width: 11,
+              height: 11,
               decoration: BoxDecoration(
                 color:
                     isCompleted ? widget.color : widget.color.withOpacity(0.13),

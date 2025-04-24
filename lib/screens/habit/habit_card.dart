@@ -78,32 +78,16 @@ class _HabitCardState extends State<HabitCard> {
                           ),
                           Gap(20),
                           Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  widget.title,
-                                  style: getBodyStyle(),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                SizedBox(height: 4),
-                                Text(
-                                  widget.description ?? '',
-                                  style: getSmallStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
+                            child: Text(
+                              widget.title,
+                              style: getBodyStyle(),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ],
                       ),
                     ),
-                    // Optional trailing widget, e.g., check icon
                     Gap(10),
                     GestureDetector(
                       onTap: () => widget.onToggle(today),
@@ -125,6 +109,20 @@ class _HabitCardState extends State<HabitCard> {
                     ),
                   ],
                 ),
+                // Gap(10),
+                // if (widget.description!.isNotEmpty)
+                //   Align(
+                //     alignment: Alignment.centerRight,
+                //     child: Text(
+                //       widget.description ?? '',
+                //       style: getSmallStyle(
+                //         fontSize: 12,
+                //         fontWeight: FontWeight.normal,
+                //       ),
+                //       maxLines: 1,
+                //       overflow: TextOverflow.ellipsis,
+                //     ),
+                //   ),
                 Gap(20),
                 Expanded(
                     child: _buildGrid(

@@ -93,9 +93,9 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
                                     child: Text(
                                       widget.habitCard.title,
                                       style: getBodyStyle(
-                                        fontSize: 14,
+                                        fontSize: 12,
                                       ),
-                                      maxLines: 2,
+                                      maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
@@ -124,7 +124,7 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
                                   child: _buildGrid(
                                       widget.habitCard.completedDates,
                                       widget.habitCard.color)),
-                              Gap(20),
+                              // Gap(20),
                               Expanded(
                                   child: Padding(
                                 padding:

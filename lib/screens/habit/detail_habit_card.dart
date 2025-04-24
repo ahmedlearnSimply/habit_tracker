@@ -151,10 +151,54 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
                                                   index: widget.index,
                                                 );
                                               } else if (icon == Icons.delete) {
-                                                if (widget.onDelete != null) {
-                                                  widget.onDelete!();
-                                                  Navigator.pop(context);
-                                                }
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return AlertDialog(
+                                                      title:
+                                                          Text("تأكيد الحذف"),
+                                                      content: Text(
+                                                          "هل أنت متأكد أنك تريد حذف هذه العادة؟"),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop(); // Close dialog
+                                                          },
+                                                          child: Text("إلغاء"),
+                                                        ),
+                                                        TextButton(
+                                                          onPressed: () {
+                                                            if (widget
+                                                                    .onDelete !=
+                                                                null) {
+                                                              widget
+                                                                  .onDelete!();
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop(); // Close dialog
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop(); // Close DetailHabitCard
+                                                              ScaffoldMessenger
+                                                                      .of(context)
+                                                                  .showSnackBar(
+                                                                SnackBar(
+                                                                    content:
+                                                                        Center(
+                                                                  child: Text(
+                                                                      "تم حذف العادة"),
+                                                                )),
+                                                              );
+                                                            }
+                                                          },
+                                                          child: Text("حذف"),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
                                               } else if (icon ==
                                                   Icons.calendar_month) {
                                                 // TODO: Add calendar behavior

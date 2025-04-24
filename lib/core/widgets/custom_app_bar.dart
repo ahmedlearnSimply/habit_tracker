@@ -8,9 +8,9 @@ import 'package:habit_tracker/core/utils/colors.dart';
 
 class CustomAppBar extends StatelessWidget {
   final String userName;
-  final VoidCallback onAddPressed;
-  final VoidCallback onStatsPressed;
-  final VoidCallback onSettingsPressed;
+  final void Function() onAddPressed;
+  final void Function()? onStatsPressed;
+  final void Function() onSettingsPressed;
 
   CustomAppBar({
     super.key,

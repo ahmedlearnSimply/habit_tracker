@@ -77,26 +77,28 @@ class _HabitCardState extends State<HabitCard> {
                             ),
                           ),
                           Gap(20),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                widget.title,
-                                style: getBodyStyle(),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              SizedBox(height: 4),
-                              Text(
-                                widget.description ?? '',
-                                style: getSmallStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.normal,
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  widget.title,
+                                  style: getBodyStyle(),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
+                                SizedBox(height: 4),
+                                Text(
+                                  widget.description ?? '',
+                                  style: getSmallStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -125,7 +127,10 @@ class _HabitCardState extends State<HabitCard> {
                 ),
                 Gap(20),
                 Expanded(
-                    child: _buildGrid(widget.completedDates, widget.color)),
+                    child: _buildGrid(
+                  widget.completedDates,
+                  widget.color,
+                )),
               ],
             ),
           ),
@@ -147,7 +152,7 @@ class _HabitCardState extends State<HabitCard> {
         const double spacing = 4;
         const int rows = 6; // For example, fixed number of rows
 
-        double dotSize = (constraints.maxHeight - (rows - 1) * spacing) /
+        double dotSize = (constraints.maxHeight - (rows - 2) * spacing) /
             rows; // dynamic size
         int columns = (constraints.maxWidth / (dotSize + spacing)).floor();
 
@@ -167,10 +172,10 @@ class _HabitCardState extends State<HabitCard> {
 
               return Container(
                 width: dotSize,
-                height: dotSize,
+                height: dotSize + 1,
                 decoration: BoxDecoration(
                   color: isCompleted ? color : color.withOpacity(0.13),
-                  borderRadius: BorderRadius.circular(3),
+                  borderRadius: BorderRadius.circular(4),
                 ),
               );
             }),

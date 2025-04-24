@@ -107,20 +107,19 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
                               ),
                               Gap(10),
                               if (widget.habitCard.description!.isNotEmpty)
-                                Center(
-                                  child: Expanded(
-                                    child: Text(
-                                      widget.habitCard.description ?? '',
-                                      style: getSmallStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w100,
-                                      ),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    widget.habitCard.description ?? '',
+                                    style: getSmallStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w100,
                                     ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
-                              Gap(10),
+                              Gap(20),
                               Expanded(
                                   child: _buildGrid(
                                       widget.habitCard.completedDates,
@@ -239,7 +238,7 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
         const double spacing = 4;
         const int rows = 6; // For example, fixed number of rows
 
-        double dotSize = (constraints.maxHeight - (rows - 1) * spacing) /
+        double dotSize = (constraints.maxHeight - (rows - 2) * spacing) /
             rows; // dynamic size
         int columns = (constraints.maxWidth / (dotSize + spacing)).floor();
 

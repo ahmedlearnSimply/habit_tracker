@@ -225,78 +225,92 @@ class _DetailHabitCardState extends State<DetailHabitCard> {
     );
   }
 
+  //
   Widget _buildGrid(List<DateTime> completedDates, Color color) {
     final DateTime today = DateTime.now();
     final DateTime startOfYear = DateTime(today.year, 1, 1);
-    final DateTime endDate = today.add(Duration(days: 2)); // Up to today only
+    final DateTime endDate = today.add(Duration(days: 0)); // Up to today only
 
     final int totalDays = endDate.difference(startOfYear).inDays + 1;
 
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Wrap(
-        textDirection: TextDirection.ltr,
-        spacing: 4,
-        runSpacing: 4,
-        direction: Axis.vertical, // 🔥 stack vertically first
-        children: List.generate(totalDays, (index) {
-          final day = startOfYear.add(Duration(days: index));
-          final isCompleted = completedDates.any((d) =>
-              d.year == day.year && d.month == day.month && d.day == day.day);
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // Calculate rows and columns based on container height/width
+        const double spacing = 4;
+        const int rows = 6; // For example, fixed number of rows
 
-          return Container(
-            width: 11,
-            height: 11,
-            decoration: BoxDecoration(
-              color: isCompleted ? color : color.withOpacity(0.13),
-              borderRadius: BorderRadius.circular(3),
-            ),
-          );
-        }),
-      ),
+        double dotSize = (constraints.maxHeight - (rows - 1) * spacing) /
+            rows; // dynamic size
+        int columns = (constraints.maxWidth / (dotSize + spacing)).floor();
+
+        return SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Wrap(
+            textDirection: TextDirection.ltr,
+            spacing: spacing,
+            runSpacing: spacing,
+            direction: Axis.vertical,
+            children: List.generate(totalDays, (index) {
+              final day = startOfYear.add(Duration(days: index));
+              final isCompleted = completedDates.any((d) =>
+                  d.year == day.year &&
+                  d.month == day.month &&
+                  d.day == day.day);
+
+              return Container(
+                width: dotSize,
+                height: dotSize,
+                decoration: BoxDecoration(
+                  color: isCompleted ? color : color.withOpacity(0.13),
+                  borderRadius: BorderRadius.circular(3),
+                ),
+              );
+            }),
+          ),
+        );
+      },
     );
   }
 }
 
-  // Widget _buildGrid(BuildContext context) {
-  //   final DateTime today = DateTime.now();
-  //   final DateTime startOfYear = DateTime(today.year, 1, 1);
-  //   final DateTime endDate = today.add(Duration(days: 10));
-  //   final int totalDays = endDate.difference(startOfYear).inDays + 1;
-  //   const int columns = 6;
+// Widget _buildGrid(BuildContext context) {
+//   final DateTime today = DateTime.now();
+//   final DateTime startOfYear = DateTime(today.year, 1, 1);
+//   final DateTime endDate = today.add(Duration(days: 10));
+//   final int totalDays = endDate.difference(startOfYear).inDays + 1;
+//   const int columns = 6;
 
-  //   // Calculate available width minus padding
-  // final availableWidth =
-  //     MediaQuery.of(context).size.width - 32; // 16 padding on each side
+//   // Calculate available width minus padding
+// final availableWidth =
+//     MediaQuery.of(context).size.width - 32; // 16 padding on each side
 
-  //   return SingleChildScrollView(
-  //     scrollDirection: Axis.horizontal,
-  //     child: SizedBox(
-  //       width: availableWidth, // Force full width
-  //       child: Wrap(
-  //         // alignment: WrapAlignment.start,
-  //         runAlignment: WrapAlignment.start,
-  //         textDirection: TextDirection.ltr,
-  //         spacing: 4,
-  //         runSpacing: 4,
-  //         children: List.generate(totalDays, (index) {
-  //           final day = startOfYear.add(Duration(days: index));
-  //           final isCompleted = widget.habitCard.completedDates.any((d) =>
-  //               d.year == day.year && d.month == day.month && d.day == day.day);
+//   return SingleChildScrollView(
+//     scrollDirection: Axis.horizontal,
+//     child: SizedBox(
+//       width: availableWidth, // Force full width
+//       child: Wrap(
+//         // alignment: WrapAlignment.start,
+//         runAlignment: WrapAlignment.start,
+//         textDirection: TextDirection.ltr,
+//         spacing: 4,
+//         runSpacing: 4,
+//         children: List.generate(totalDays, (index) {
+//           final day = startOfYear.add(Duration(days: index));
+//           final isCompleted = widget.habitCard.completedDates.any((d) =>
+//               d.year == day.year && d.month == day.month && d.day == day.day);
 
-  //           return Container(
-  //             width: 11,
-  //             height: 11,
-  //             decoration: BoxDecoration(
-  //               color: isCompleted
-  //                   ? widget.habitCard.color
-  //                   : widget.habitCard.color.withOpacity(0.2),
-  //               borderRadius: BorderRadius.circular(3),
-  //             ),
-  //           );
-  //         }),
-  //       ),
-  //     ),
-  //   );
-  // }
-
+//           return Container(
+//             width: 11,
+//             height: 11,
+//             decoration: BoxDecoration(
+//               color: isCompleted
+//                   ? widget.habitCard.color
+//                   : widget.habitCard.color.withOpacity(0.2),
+//               borderRadius: BorderRadius.circular(3),
+//             ),
+//           );
+//         }),
+//       ),
+//     ),
+//   );
+// }

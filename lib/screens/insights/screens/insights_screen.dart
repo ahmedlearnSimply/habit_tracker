@@ -113,7 +113,7 @@ class _InsightsScreenState extends State<InsightsScreen> {
                         child: Icon(
                           IconData(widget.habits[index].iconCodePoint,
                               fontFamily: 'MaterialIcons'),
-                          color: Color(widget.habits[0].colorValue),
+                          color: Color(widget.habits[index].colorValue),
                         ),
                       ),
                       Gap(10),

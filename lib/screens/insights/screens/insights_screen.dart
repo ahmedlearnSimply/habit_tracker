@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:habit_tracker/core/utils/textStyle.dart';
 import 'package:habit_tracker/screens/habit/habit_card.dart';
 import 'package:habit_tracker/screens/home/model/habit_model.dart';
@@ -82,17 +83,38 @@ class _InsightsScreenState extends State<InsightsScreen> {
                   ),
                 ],
               ),
+              Gap(20),
               Container(
-                  child: Row(
-                children: [
-                  Text(
-                    "dfasd",
-                    style: getBodyStyle(
-                      fontSize: 20,
+                width: double.infinity,
+                child: Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 4),
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color:
+                            Color(widget.habits[0].colorValue).withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Icon(
+                        IconData(widget.habits[0].iconCodePoint,
+                            fontFamily: 'MaterialIcons'),
+                        color: Color(widget.habits[0].colorValue),
+                      ),
                     ),
-                  ),
-                ],
-              )),
+                    Gap(10),
+                    Flexible(
+                      child: Text(
+                        widget.habits[0].title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

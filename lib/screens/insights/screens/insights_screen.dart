@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:habit_tracker/core/utils/colors.dart';
 import 'package:habit_tracker/core/utils/textStyle.dart';
 import 'package:habit_tracker/screens/habit/habit_card.dart';
 import 'package:habit_tracker/screens/home/model/habit_model.dart';
@@ -20,9 +21,11 @@ class InsightsScreen extends StatefulWidget {
 
 class _InsightsScreenState extends State<InsightsScreen> {
   @override
+  int index = 0;
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: AppColors.cardColor,
         body: Padding(
           padding: const EdgeInsets.all(15.0),
           child: Column(
@@ -38,7 +41,7 @@ class _InsightsScreenState extends State<InsightsScreen> {
                           return GestureDetector(
                             onTap: () {
                               setState(() {
-                                // index++;
+                                index = widget.habits.indexOf(habit);
                               });
                             },
                             child: Container(
@@ -68,7 +71,7 @@ class _InsightsScreenState extends State<InsightsScreen> {
                       height: 40,
                       width: 70,
                       decoration: BoxDecoration(
-                        color: widget.habits[0].color,
+                        color: widget.habits[index].color,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Center(
@@ -85,34 +88,45 @@ class _InsightsScreenState extends State<InsightsScreen> {
               ),
               Gap(20),
               Container(
+                decoration: BoxDecoration(
+                  color: AppColors.background,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: Colors.white.withOpacity(0.2),
+                    width: 1,
+                  ),
+                ),
                 width: double.infinity,
-                child: Row(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 4),
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color:
-                            Color(widget.habits[0].colorValue).withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(8),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Row(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 4),
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: Color(widget.habits[index].colorValue)
+                              .withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Icon(
+                          IconData(widget.habits[index].iconCodePoint,
+                              fontFamily: 'MaterialIcons'),
+                          color: Color(widget.habits[0].colorValue),
+                        ),
                       ),
-                      child: Icon(
-                        IconData(widget.habits[0].iconCodePoint,
-                            fontFamily: 'MaterialIcons'),
-                        color: Color(widget.habits[0].colorValue),
+                      Gap(10),
+                      Flexible(
+                        child: Text(
+                          widget.habits[index].title,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(),
+                        ),
                       ),
-                    ),
-                    Gap(10),
-                    Flexible(
-                      child: Text(
-                        widget.habits[0].title,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],

@@ -13,12 +13,16 @@ class HabitCard extends StatefulWidget {
   final Function(DateTime) onToggle;
 
   String? description = " ";
+  double? ver = 10;
+  double? hor = 10;
   IconData icon;
   HabitCard({
     super.key,
     required this.title,
     this.description,
     required this.icon,
+    this.ver = 10,
+    this.hor = 10,
     required this.color,
     required this.completedDates,
     required this.onToggle,
@@ -38,12 +42,13 @@ class _HabitCardState extends State<HabitCard> {
     final bool isTodayCompleted = widget.completedDates.any((d) =>
         d.year == today.year && d.month == today.month && d.day == today.day);
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      padding:
+          EdgeInsets.symmetric(vertical: widget.ver!, horizontal: widget.hor!),
       child: Center(
         child: Container(
           decoration: BoxDecoration(
             color: AppColors.background,
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(8),
             border: Border.all(
               color: AppColors.secondaryText,
               width: .1,

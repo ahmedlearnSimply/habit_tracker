@@ -1,6 +1,7 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/core/utils/textStyle.dart';
 import 'package:habit_tracker/screens/habit/habit_card.dart';
 import 'package:habit_tracker/screens/home/model/habit_model.dart';
 
@@ -81,6 +82,17 @@ class _InsightsScreenState extends State<InsightsScreen> {
                   ),
                 ],
               ),
+              Container(
+                  child: Row(
+                children: [
+                  Text(
+                    "dfasd",
+                    style: getBodyStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                ],
+              )),
             ],
           ),
         ),
